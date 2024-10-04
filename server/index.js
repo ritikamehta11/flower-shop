@@ -4,9 +4,13 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
+const shopRoutes = require('./routes/shopRoutes');
 
 const app = express()
 const PORT = process.env.PORT || 8888;
+// MIDDLEWARES
+app.use(cookieParser());
+app.use(express.json());
 
 
 app.use(
@@ -38,15 +42,11 @@ app.use((err, req, res, next) => {
 
 
 
-
-
-// MIDDLEWARES
-app.use(cookieParser());
-app.use(express.json());
-
-
 //ROUTES
 app.use('/api/auth', authRoutes);
+app.use('/api/shop', shopRoutes);
+
+
 
 
 app.listen(PORT, () => console.log(`server is now running on port ${PORT}`));
