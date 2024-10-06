@@ -1,6 +1,7 @@
 import { ProductCard } from '@/components/ProductCard';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import Header from '@/components/Header';
 export const Mainpage = () => {
 
   const [products, setProducts] = useState([]);
@@ -11,13 +12,15 @@ export const Mainpage = () => {
       setProducts(response.data);
     };
     fetchProducts();
+    console.log(products);
 
   }, []);
   return (
-    <div>Mainpage
-      {products.map((product) => {
-        < ProductCard key={product._id} product={product}></ProductCard>
-      })}
+    <div>
+      <Header></Header>
+      {products.map((product) => (
+        < ProductCard key={product._id} product={product}/>
+      ))}
     </div>
   )
 }

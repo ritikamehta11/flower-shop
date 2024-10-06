@@ -6,4 +6,61 @@
 body {
   font-family: "Roboto Flex";
   height: 100vh;
+  background-color: #f6f6f6;
+}
+
+:root {
+  --primary-lt: #FFFFFF;
+  --primary-dk: #00120B;
+  --secondaty-lt: #F8EEED;
+  --secondary-dk: #3E522F;
+  --accent-lt: #628A33;
+  --accent-dk: #6F101E;
+  --primary-font: "Roboto Serif";
+  --secondary-font: "Roboto Flex";
+  --input-block: #D9D9D9;
+
+}
+
+.logo {
+  font-family: var(--secondary-font);
+  color: var(--accent-dk);
+  font-size: 1.5em;
+}
+
+.hero{
+  background-color: #FFFFFF;
+}
+
+
+/* HOME page */
+.sub-head {
+  font-family: var(--primary-font);
+  color: var(--primary-dk);
+
+}
+
+.pri-btn {
+  background-color: var(--accent-lt);
+  color: var(--primary-lt);
+  font-size: 0.8em;
+}
+
+ul>li {
+  color: var(--accent-lt);
+}
+
+/* Register page */
+
+.input {
+  display: block;
+  background-color: var(--input-block);
+  border: 1px var(--input-block) solid;
+width: 100%;
+padding: 0.2em 0.71em;
+}
+
+.input::placeholder{
+  color:rgba(0, 0, 0, 0.559);
+  font-size: 0.8em;
 }
