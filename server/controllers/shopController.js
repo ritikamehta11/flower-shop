@@ -1,5 +1,18 @@
 const Product = require('../models/shopModel');
 
+
+//get product by id
+
+const getProduct = async(req, res) => {
+  try{
+    const productId = await Product.findById(req.params.id);
+    if(!productId) return res.status(404).json({ msg: "Not found" });
+    res.json(productId);
+
+  }catch(error) {
+    console.log(error);
+  }
+};
 // get all products
 
 const getProducts = async (req, res) => {
@@ -33,4 +46,15 @@ const createProduct = async (req, res) => {
     }
 };
 
-module.exports = { getProducts, createProduct };
+
+const updateProduct = async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedProduct);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error });
+  }
+}
+
+module.exports = { getProduct,getProducts, createProduct ,updateProduct};

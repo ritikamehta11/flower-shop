@@ -28,7 +28,7 @@ const register = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '7d' }
     );
 
    
@@ -69,7 +69,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '7d' }
     );
 
     // Return the token and user details
@@ -89,6 +89,14 @@ const login = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    console.log(error);
+    // res.status(500).json({ error: error });
+  }
+};
 
-
-module.exports = { register, login};
+module.exports = { register, login, getUsers };

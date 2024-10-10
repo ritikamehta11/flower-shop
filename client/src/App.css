@@ -54,7 +54,7 @@ ul>li {
 
 .input {
   display: block;
-  background-color: var(--input-block);
+  /* background-color: var(--input-block); */
   border: 1px var(--input-block) solid;
 width: 100%;
 padding: 0.2em 0.71em;
@@ -63,4 +63,40 @@ padding: 0.2em 0.71em;
 .input::placeholder{
   color:rgba(0, 0, 0, 0.559);
   font-size: 0.8em;
+}
+
+
+/* Admin Dashboard */
+.dashboardLinks{
+  color: rgba(0, 0, 0, 0.781);
+  border: 1px solid rgba(0, 0, 0, 0.353);
+  padding: 4em;
+  min-width: max-content;
+  
+}
+
+
+/* productpageadmin */
+.labels{
+  width: 40%;
+}
+
+
+.productInfo{
+  border: 1px solid rgba(0, 0, 0, 0.353);
+  padding: 2em;
+}
+.sec-btn-update{
+  border: 1px solid var(--accent-lt);
+
+}
+.sec-btn-delete{
+  border: 1px solid var(--accent-dk);
+}
+
+
+/* addProductPage */
+
+.addProductPage{
+  background-color: var(--secondary-dk);
 }
