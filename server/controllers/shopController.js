@@ -27,14 +27,14 @@ const getProducts = async (req, res) => {
 
 // Create new product (Admin only)
 const createProduct = async (req, res) => {
-    const { name, price, description, imageUrl, category } = req.body;
-
+    const { name, price, description, category } = req.body;
+  const image = req.file ? req.file.path : '';
     try {
         const product = new Product({
             name,
             price,
             description,
-          imageUrl,
+          image,
             category,
         });
 

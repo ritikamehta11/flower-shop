@@ -2,6 +2,7 @@ const express = require('express');
 const { getProducts, createProduct, updateProduct, getProduct } = require('../controllers/shopController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const roleMiddleware = require('../middlewares/roleMiddleware');
+const upload = require('../middlewares/uploadMiddleware');
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ const router = express.Router();
 router.get('/:id',getProduct)
 router.get('/', getProducts);
 
-router.post('/create',  authMiddleware, roleMiddleware('admin'),createProduct)
+router.post('/create', upload.single('image'), authMiddleware, roleMiddleware('admin'),createProduct)
 // , authMiddleware, roleMiddleware('admin'),
 
 

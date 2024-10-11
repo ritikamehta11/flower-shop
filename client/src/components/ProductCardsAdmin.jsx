@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const ProductCardAdmin = ({ product }) => {
   return (
     <section className='flex flex-row'>
-      <img src="" alt="" />
+      <img src={`http://localhost:8888/${product.image}`} alt="" />
       <div className='productInfo basis-2/3'>
       <p><span className='labels'>Name:</span>  {product.name}</p>
       <p><span className='labels'>Price: </span> {product.price}</p>
