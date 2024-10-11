@@ -55,6 +55,17 @@ const updateProduct = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error });
   }
-}
+};
 
-module.exports = { getProduct,getProducts, createProduct ,updateProduct};
+const deleteProduct = async (req, res) => {
+    try {
+        await Product.findByIdAndDelete(req.params.id);
+        res.json({ msg: 'Product deleted' });
+    } catch (error) {
+      console.log(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+
+module.exports = { getProduct,getProducts, createProduct ,updateProduct, deleteProduct};

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProducts, createProduct, updateProduct, getProduct } = require('../controllers/shopController');
+const { getProducts, createProduct, updateProduct, getProduct, deleteProduct } = require('../controllers/shopController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const roleMiddleware = require('../middlewares/roleMiddleware');
 const upload = require('../middlewares/uploadMiddleware');
@@ -16,5 +16,7 @@ router.post('/create', upload.single('image'), authMiddleware, roleMiddleware('a
 
 
 router.put('/update/:id', authMiddleware, roleMiddleware('admin'), updateProduct);
+
+router.delete('/delete/:id', authMiddleware, roleMiddleware('admin'), deleteProduct);
 
 module.exports = router;

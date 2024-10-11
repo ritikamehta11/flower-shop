@@ -16,6 +16,10 @@ export const ProductsAdmin = () => {
     console.log(products);
 
   }, []);
+//we are updating this page so function is defined here and then passed to the card
+  const handleDeleteProduct = (deletedProductId) => {
+    setProducts(products.filter((product) => product._id !== deletedProductId));
+  };
   return (
     <>
       <Header />
@@ -25,7 +29,7 @@ export const ProductsAdmin = () => {
           <p><Link to='/admin/createproduct'>Add</Link></p>
         </div>
         {products.map((product) => (
-          < ProductCardAdmin key={product._id} product={product} />
+          < ProductCardAdmin key={product._id} product={product} onDelete={handleDeleteProduct}/>
         ))}
       </div>
     </>
