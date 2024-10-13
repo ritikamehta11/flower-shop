@@ -28,9 +28,10 @@ const Login = () => {
         const { user, token } = response.data;
         const { role } = response.data.user; // Assuming the response structure includes user data
         localStorage.setItem('token', response.data.token);
-       
+        localStorage.setItem('user', JSON.stringify(user)); 
         console.log(token);
         setUser(user);
+        console.log(user);
         // Navigate based on user role
         if (role === 'admin') {
           navigate('/admin/dashboard'); // Redirect to admin dashboard

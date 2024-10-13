@@ -1,16 +1,29 @@
 import { ProductCard } from '@/components/ProductCard';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import Header from '@/components/Header';
-export const Mainpage = () => {
+import { UserContext } from '@/context/UserContext';
+import { Footer } from '@/components/Footer';
 
+
+export const Mainpage = () => {
+ 
+  const { user } = useContext(UserContext);
+  console.log(user);
   const [products, setProducts] = useState([]);
   const [searchTerm,setSearchTerm] = useState('');
   useEffect(() => {
 
     const fetchProducts = async () => {
+      const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:8888/api/shop');
-      setProducts(response.data);
+
+    //    , {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // }
+    setProducts(response.data);
     };
     fetchProducts();
     
@@ -75,6 +88,8 @@ export const Mainpage = () => {
         product.category === "bouquet" ?
         < ProductCard key={product._id} product={product} /> : null
       ))} */}
+
+      <Footer/>
     </div>
   )
 }

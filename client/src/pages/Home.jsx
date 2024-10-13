@@ -20,7 +20,8 @@ export default function Home()  {
           <Link to='/main'><button className='pri-btn btn block px-9 py-1 text-center font-thin mx-auto'>Shop Now</button></Link>
         </div>
 
-    </section>
+      </section>
+      <Footer></Footer>
     </section>
   )
 }

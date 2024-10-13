@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const shopRoutes = require('./routes/shopRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express()
 const PORT = process.env.PORT || 8888;
@@ -46,8 +47,7 @@ app.use((err, req, res, next) => {
 //ROUTES
 app.use('/api/auth', authRoutes);
 app.use('/api/shop', shopRoutes);
-
-
+app.use('/api/cart', cartRoutes);
 
 
 app.listen(PORT, () => console.log(`server is now running on port ${PORT}`));

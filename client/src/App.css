@@ -100,3 +100,19 @@ padding: 0.2em 0.71em;
 .addProductPage{
   background-color: var(--secondary-dk);
 }
+
+
+
+/* footer */
+.footer{
+  background-color: var(--secondary-dk);
+  color: var(--primary-lt);
+}
+
+.footer li{
+   margin: 0.6em 1em;
+}
+.footer li:hover{
+ 
+  color: var(--primary-lt);
+}
