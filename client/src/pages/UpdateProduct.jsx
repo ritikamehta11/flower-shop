@@ -19,7 +19,7 @@ export const UpdateProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:8888/api/shop/${id}`);
+        const response = await axios.get(`https://flower-shop-backend-81tw.onrender.com/api/shop/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.log(error);
@@ -40,7 +40,7 @@ export const UpdateProduct = () => {
 
       const token = localStorage.getItem('token');
       console.log(token);
-      const response = await axios.put(`http://localhost:8888/api/shop/update/${id}`, product, {
+      const response = await axios.put(`https://flower-shop-backend-81tw.onrender.com/api/shop/update/${id}`, product, {
         headers: {
           Authorization: `Bearer ${token}`  // Pass the token in the headers
         }
