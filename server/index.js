@@ -17,7 +17,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://flower-shop-frontend-o8f7.onrender.com',
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
     allowedHeaders: [
       'Content-Type',
