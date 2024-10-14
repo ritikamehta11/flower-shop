@@ -1,6 +1,3 @@
-
-
-
 import Header from '@/components/Header';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -36,6 +33,7 @@ export const AddProduct = () => {
 
       navigate('/admin/allproducts');
     } catch (error) {
+      
       console.log(error);
     }
   };
