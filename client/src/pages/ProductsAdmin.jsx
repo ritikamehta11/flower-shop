@@ -9,7 +9,7 @@ export const ProductsAdmin = () => {
   useEffect(() => {
 
     const fetchProducts = async () => {
-      const response = await axios.get('http://localhost:8888/api/shop');
+      const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/shop');
       setProducts(response.data);
     };
     fetchProducts();
