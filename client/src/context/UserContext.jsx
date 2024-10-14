@@ -40,7 +40,7 @@ export const UserProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8888/api/cart',
+      const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
         { userId: user.id, productId, quantity },
         {
           headers: {
@@ -67,7 +67,7 @@ export const UserProvider = ({ children }) => {
     try {
       console.log(`Attempting to remove product with ID: ${productId}`);
 
-      const response = await axios.delete(`http://localhost:8888/api/cart/${user.id}/product/${productId}`, {
+      const response = await axios.delete(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
