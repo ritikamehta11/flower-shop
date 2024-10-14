@@ -12,7 +12,7 @@ const register = async (req, res) => {
     if (existingUser) return res.status(400).json({ msg: 'User already exists' });
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, 6);
 
     // Create new user
     const user = new User({
