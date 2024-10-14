@@ -119,7 +119,7 @@ export const UserProvider = ({ children }) => {
   }, [user, token]);
 
   const addToCart = async (productId, quantity) => {
-    console.log(user.id);
+    //console.log(user.id);
     if (!user) {
       console.error("User not set");
       return;
@@ -134,6 +134,7 @@ export const UserProvider = ({ children }) => {
           },
         });
       setCart(response.data.items);
+      console.log("cart",cart);
     } catch (error) {
       console.error('Error adding to cart', error);
     }
@@ -145,18 +146,33 @@ export const UserProvider = ({ children }) => {
       return;
     }
 
+    // Optimistically update the cart in the UI
+    const newCart = cart.filter(item => item.productId !== productId);
+    setCart(newCart); // Remove the item locally first
+
     try {
-      const response = await axios.delete(`/api/cart/${user._id}/product/${productId}`, {
+      console.log(`Attempting to remove product with ID: ${productId}`);
+
+      const response = await axios.delete(`http://localhost:8888/api/cart/${user.id}/product/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setCart(response.data.items);
-      console.log(response.data.items);
+
+      // Check if the backend response is valid
+      if (response.data && response.data.items) {
+        setCart(response.data.items); // Set the new cart state with updated items from the server
+        console.log("Cart after server response:", response.data.items);
+      } else {
+        console.error("Unexpected response structure:", response.data);
+      }
     } catch (error) {
       console.error('Error removing from cart', error);
+      // Rollback: If the request fails, reset the cart state to its previous state
+      setCart(cart);
     }
   };
+
 
   return (
     <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart }}>

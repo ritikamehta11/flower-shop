@@ -11,6 +11,7 @@ import { AddProduct } from './pages/AddProduct';
 import { UpdateProduct } from './pages/UpdateProduct';
 import { UserContext } from './context/UserContext';
 import Cart from './pages/Cart';
+import { Users } from './pages/Users';
 
 
 function App() {
@@ -38,7 +39,8 @@ function App() {
       <Route path='/admin/allproducts' element={<ProductsAdmin />} />
       <Route path='/admin/createproduct' element={<AddProduct />} />
       <Route path='/admin/updateproductbyid/:id' element={<UpdateProduct />} />
-<Route path='/cart' element={<Cart/>}/>
+      <Route path='/cart' element={<Cart />} />
+      <Route path='/users' element={<Users/>}/>
     </Routes>
 
   )

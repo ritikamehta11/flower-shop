@@ -92,6 +92,12 @@ padding: 0.2em 0.71em;
 }
 .sec-btn-delete{
   border: 1px solid var(--accent-dk);
+  color: var(--accent-dk);
+}
+.sec-btn-delete:hover {
+  border: 1px solid var(--accent-dk);
+  color: var(--primary-lt);
+  background-color: var(--accent-dk);
 }
 
 
