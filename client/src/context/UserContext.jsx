@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
 
   // Fetch the cart when the user is set or changes
   useEffect(() => {
-    console.log(user._id);
+    //console.log(user._id);
     if (user) {
       const fetchCart = async () => {
         try {
