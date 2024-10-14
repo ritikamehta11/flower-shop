@@ -71,7 +71,10 @@ export const Mainpage = () => {
       </section>
 
       <h2 className='text-center'>Products</h2>
-      {console.log(filteredProducts)};
+
+
+
+      {/* {console.log(filteredProducts)}; */}
       <div className='w-3/4 m-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 text-center'>
       {filteredProducts.length > 0 ? (
         filteredProducts.map((product) => (

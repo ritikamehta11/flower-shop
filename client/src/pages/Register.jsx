@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from '../components/Header';
 import img from '../assets/images/homepageMain.png';
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
+  const navigate = useNavigate();
 
 
   const handleRegister = async (e) => {
@@ -18,6 +19,7 @@ const Register = () => {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/register', { name, email, phone, password });
 
       setMessage(response.data.message);
+      navigate('/login');
     }
     catch (error) {
      
@@ -50,6 +52,7 @@ const Register = () => {
             <button className="pri-btn px-9 py-1 text-center font-thin mx-auto block" type="submit">Register</button>
 
             {message && <p>{message}</p>}
+            
 
           </form>
           
