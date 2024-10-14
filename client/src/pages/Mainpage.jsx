@@ -16,7 +16,7 @@ export const Mainpage = () => {
 
     const fetchProducts = async () => {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8888/api/shop');
+      const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/shop');
 
     //    , {
     //   headers: {
