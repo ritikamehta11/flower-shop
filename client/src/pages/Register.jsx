@@ -21,7 +21,7 @@ const Register = () => {
     }
     catch (error) {
       <Error text={error} />
-      setMessage(error.response?.data?.message );
+      setMessage(error.response?.data?.message )
     }
   };
 
