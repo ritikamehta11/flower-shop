@@ -20,8 +20,9 @@ const Register = () => {
       setMessage(response.data.message);
     }
     catch (error) {
-      <Error text={error} />
-      setMessage(error.response?.data?.message )
+     
+      setMessage(error);
+        < Error text = { error } />
     }
   };
 
