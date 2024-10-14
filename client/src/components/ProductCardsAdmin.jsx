@@ -10,7 +10,7 @@ export const ProductCardAdmin = ({ product, onDelete }) => {
     try {
       const token = localStorage.getItem('token');
       // Send DELETE request to the backend
-      await axios.delete(`http://localhost:8888/api/shop/delete/${product._id}`, {
+      await axios.delete(`https://flower-shop-backend-81tw.onrender.com/api/shop/delete/${product._id}`, {
         headers: {
           Authorization: `Bearer ${token}` // Pass token if authentication is required
         }
