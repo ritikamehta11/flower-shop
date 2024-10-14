@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       
-      const response = await axios.post('http://localhost:8888/api/auth/login', { email, password });
+      const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/login', { email, password });
       
 
       // alert("done");
