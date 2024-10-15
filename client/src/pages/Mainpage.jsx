@@ -15,15 +15,19 @@ export const Mainpage = () => {
   useEffect(() => {
 
     const fetchProducts = async () => {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/shop');
-
-    //    , {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // }
-    setProducts(response.data);
+     try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/shop'
+          //                                , {
+          // headers: {
+          //   Authorization: `Bearer ${token}`
+          // } }
+       );
+        console.log("API Response:", response.data); // Log the API response
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
     fetchProducts();
     
