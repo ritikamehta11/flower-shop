@@ -61,8 +61,8 @@ export const UserProvider = ({ children }) => {
     }
 
     // Optimistically update the cart in the UI
-    const newCart = cart.filter(item => item.productId !== productId);
-    setCart(newCart); // Remove the item locally first
+    
+    setCart(cart.filter(item => item.productId !== productId)); // Remove the item locally first
 
     try {
       console.log(`Attempting to remove product with ID: ${productId}`);

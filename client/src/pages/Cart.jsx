@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(UserContext);
+  const image = response.data.imageUrl;
 
   const getTotalPrice = () => {
     
@@ -36,7 +37,7 @@ const Cart = () => {
                   >
                     <div className="flex items-center">
                       <img
-                        src={`https://flower-shop-backend-81tw.onrender.com/${item.productId.image}`}     alt={item.productId.name}
+                        src={image}     alt={item.productId.name}
                         className="w-20 h-20 object-cover rounded-lg"
                       />
                       <div className="ml-4">

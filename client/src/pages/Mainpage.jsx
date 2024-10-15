@@ -55,8 +55,8 @@ export const Mainpage = () => {
       <Header />
       <section className='featuredProducts'>
         <div className='featuredProductInfo h-max text-center py-24 text-3xl text-gray-50 bg-neutral-900'>
-          {/* <p>{randomProduct.name}</p> */}
-          <button></button>
+          <p>{randomProduct.name}</p>
+          <button>Shop Now</button>
         </div>
       </section>
       <section className='search-bar flex flex-row w-2/4 m-auto py-10 gap-2'>
