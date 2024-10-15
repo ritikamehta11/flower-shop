@@ -14,6 +14,10 @@ export const AddProduct = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
 
+    if (!name || !price || !description || !category || !image) {
+      alert('Please fill out all fields including uploading an image.');
+      return;
+    }
     // Create a FormData object to handle file upload
     const formData = new FormData();
     formData.append('name', name);

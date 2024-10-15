@@ -34,7 +34,7 @@ const createProduct = async (req, res) => {
         }
 
         // Get the Cloudinary image URL from the uploaded file
-        const imageUrl = req.file.path;
+        const imageUrl = await cloudinary.uploader.upload(req.file.path);
 
         // Create the new product with the provided data and image URL
         const newProduct = new Product({
@@ -54,7 +54,7 @@ const createProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error creating product:', error);
+        console.log(error.response.data);
         res.status(500).json({
             message: 'Failed to create product',
             error: error.message
