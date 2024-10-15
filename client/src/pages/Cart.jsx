@@ -31,6 +31,7 @@ const Cart = () => {
               {/* Cart Items Section */}
               <div className="col-span-2">
                 <ul className="space-y-4">
+                  {console.log("cart in cart.jsx",cart)}
                   {cart.map((item, index) => (
                     <li
                       key={`${item.productId._id}-${index}`}
