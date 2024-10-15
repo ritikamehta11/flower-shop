@@ -90,6 +90,12 @@ padding: 0.2em 0.71em;
   border: 1px solid var(--accent-lt);
 
 }
+
+.sec-btn-update{
+  border: 1px solid var(--accent-lt);
+  color: var(--primary-lt);
+  background-color: var(--accent-lt);
+}
 .sec-btn-delete{
   border: 1px solid var(--accent-dk);
   color: var(--accent-dk);

@@ -63,13 +63,46 @@ console.log(newProduct);
 };
 
 const updateProduct = async (req, res) => {
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedProduct);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error });
-  }
+    try {
+        // Check if a file was uploaded
+        let image;
+        if (req.file) {
+            // Upload the new image to Cloudinary
+            const imageUrl = await cloudinary.uploader.upload(req.file.path);
+            image = imageUrl.secure_url; // Get the new image URL
+        }
+
+        // Find the product by ID
+        const productId = req.params.id;
+        const updateData = {
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+        };
+
+        // If an image was uploaded, include it in the update
+        if (image) {
+            updateData.image = image;
+        }
+
+        // Update the product in the database
+        const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
+
+        // If the product was not found
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        res.json({
+            message: 'Product updated successfully',
+            product: updatedProduct
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal Server Error', error });
+    }
 };
 
 const deleteProduct = async (req, res) => {

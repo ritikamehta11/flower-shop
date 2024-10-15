@@ -15,7 +15,7 @@ router.post('/create', upload.single('image'), authMiddleware, roleMiddleware('a
 // , authMiddleware, roleMiddleware('admin'),
 
 
-router.put('/update/:id', authMiddleware, roleMiddleware('admin'), updateProduct);
+router.put('/update/:id', upload.single('image'), authMiddleware, roleMiddleware('admin'), updateProduct);
 
 router.delete('/delete/:id', authMiddleware, roleMiddleware('admin'), deleteProduct);
 
