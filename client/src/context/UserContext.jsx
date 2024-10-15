@@ -85,10 +85,11 @@ export const UserProvider = ({ children }) => {
         console.log("Cart after server response:", response.data.items);
 
         // Update the cart with the new state after removal
-        const updatedCart = cart.filter(item => item.productId !== productId);
+        const updatedCart = cart.items.filter(item => item.productId._id !== productId);
+        setCart({ ...cart, items: updatedCart });
 
         // Update the cart state
-        setCart(updatedCart);
+       
       } else {
         console.error("Unexpected response structure or failed request:", response.data);
       }

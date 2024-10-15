@@ -45,21 +45,20 @@ const addToCart= async (req, res) => {
 
 // Remove item from cart
 const deleteItemFromCart= async (req, res) => {
-  const { userId, productId } = req.params;
+  const { userId } = req.params;
+    const { productId } = req.params; // The productId of the item to be removed
 
-  try {
-    const cart = await Cart.findOne({ userId });
-    
-    if (!cart) return res.status(404).json({ message: 'Cart not found' });
-   
-    cart.items = cart.items.filter(item => item.productId.toString() !== productId);
-    await cart.save();
-    console.log("backend cart",cart);
-    
-    res.json(cart);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+    try {
+        // Find the user and update the cart by removing the item with the matching productId
+        await Cart.updateOne(
+            { userId: userId },
+            { $pull: { items: { 'productId': productId } } } // Remove the matching productId item
+        );
+
+        res.status(200).json({ message: 'Item removed from cart' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error removing item from cart', error });
+    }
 };
 
 
