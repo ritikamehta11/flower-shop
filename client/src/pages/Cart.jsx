@@ -78,7 +78,7 @@ const Cart = () => {
                   <p>Total</p>
                   <p>${(parseFloat(getTotalPrice()) + 5).toFixed(2)}</p>
                 </div>
-                <button className="mt-6 w-full bg-primary text-white py-3 rounded-md text-lg hover:bg-primary-dark">
+                  <button className="sec-btn-update px-4 py-1 rounded-md text-sm">
                   Proceed to Checkout
                 </button>
               </div>

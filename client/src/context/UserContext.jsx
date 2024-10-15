@@ -66,30 +66,33 @@ export const UserProvider = ({ children }) => {
       return;
     }
 
-
     try {
       console.log(`Attempting to remove product with ID: ${productId}`);
 
-      const response = await axios.delete(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setCart(cart.filter(item => item.productId !== productId));
-      // Check if the backend response is valid
-      if (response.data && response.data.items) {
-        setCart(response.data.items); // Set the new cart state with updated items from the server
-        //await fetchLatestCartData();
+      // Send the DELETE request to the backend
+      const response = await axios.delete(
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Ensure the backend successfully removes the item
+      if (response.status === 200 && response.data && response.data.items) {
         console.log("Cart after server response:", response.data.items);
+
+        // Update the cart with the new state after removal
+        setCart(response.data.items);
       } else {
-        console.error("Unexpected response structure:", response.data);
+        console.error("Unexpected response structure or failed request:", response.data);
       }
     } catch (error) {
-      console.error('Error removing from cart', error);
-      // Rollback: If the request fails, reset the cart state to its previous state
-      setCart(cart);
+      console.error("Error removing from cart", error);
     }
   };
+
 
 
 
