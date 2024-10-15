@@ -1,5 +1,5 @@
 const Product = require('../models/shopModel');
-
+const cloudinary = require('cloudinary').v2; 
 
 //get product by id
 
