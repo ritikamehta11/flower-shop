@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(UserContext);
-  const image = response.data.imageUrl;
+ // const image = response.data.imageUrl;
 
   const getTotalPrice = () => {
 
