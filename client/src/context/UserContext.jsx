@@ -37,7 +37,7 @@ export const UserProvider = ({ children }) => {
     if (!user) {
       console.error("User not set");
       return;
-    }
+    } else { console.log(user); }
 
     try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
@@ -60,9 +60,6 @@ export const UserProvider = ({ children }) => {
       return;
     }
 
-    // Optimistically update the cart in the UI
-    
-    setCart(cart.filter(item => item.productId !== productId)); // Remove the item locally first
 
     try {
       console.log(`Attempting to remove product with ID: ${productId}`);
@@ -72,7 +69,7 @@ export const UserProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setCart(cart.filter(item => item.productId !== productId)); // Remove the item locally first
       // Check if the backend response is valid
       if (response.data && response.data.items) {
         setCart(response.data.items); // Set the new cart state with updated items from the server
