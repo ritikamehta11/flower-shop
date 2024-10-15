@@ -30,7 +30,7 @@ export const Mainpage = () => {
 
   }, []);
 // console.log(products);
-  const randomProduct = products[Math.floor(Math.random() * products.length)];
+  // const randomProduct = products[Math.floor(Math.random() * products.length)];
   // console.log(randomProduct);
 
 
