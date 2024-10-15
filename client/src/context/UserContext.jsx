@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
       };
       fetchCart();
     }
-  }, [user, token, cart]);
+  }, [user, token]);
 
   const addToCart = async (productId, quantity) => {
     //console.log(user.id);
