@@ -50,8 +50,8 @@ const Cart = () => {
                         </div>
                       </div>
                       <div className="flex space-x-2">
-                        <button onClick={() => increaseQuantity(item.productId._id)} className="sec-btn-increase">+</button>
-                        <button onClick={() => decreaseQuantity(item.productId._id)} className="sec-btn-decrease">-</button>
+                        <button onClick={() => increaseQuantity(item.productId)} className="sec-btn-increase">+</button>
+                        <button onClick={() => decreaseQuantity(item.productId)} className="sec-btn-decrease">-</button>
                         <button onClick={() => removeFromCart(item.productId)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
                           Remove
                         </button>

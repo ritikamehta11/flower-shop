@@ -51,7 +51,7 @@ const deleteItemFromCart= async (req, res) => {
     const cart = await Cart.findOne({ userId });
     
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
-    
+    console.log("productId in backend:", productId);
     cart.items = cart.items.filter(item => item.productId.toString() !== productId);
     await cart.save();
     console.log(cart);
