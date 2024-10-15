@@ -48,7 +48,7 @@ export const UserProvider = ({ children }) => {
           },
         });
       setCart(response.data.items);
-      console.log("cart",cart);
+      console.log("cart", cart);
     } catch (error) {
       console.error('Error adding to cart', error);
     }
@@ -69,7 +69,7 @@ export const UserProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setCart(cart.filter(item => item.productId !== productId)); // Remove the item locally first
+      setCart(cart.filter(item => item.productId !== productId));
       // Check if the backend response is valid
       if (response.data && response.data.items) {
         setCart(response.data.items); // Set the new cart state with updated items from the server
@@ -125,7 +125,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart ,increaseQuantity, decreaseQuantity }}>
+    <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}>
       {children}
     </UserContext.Provider>
   );

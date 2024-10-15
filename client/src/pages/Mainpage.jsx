@@ -15,22 +15,26 @@ export const Mainpage = () => {
   useEffect(() => {
 
     const fetchProducts = async () => {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/shop');
-
-    //    , {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // }
-    setProducts(response.data);
+     try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/shop'
+          //                                , {
+          // headers: {
+          //   Authorization: `Bearer ${token}`
+          // } }
+       );
+        console.log("API Response:", response.data); // Log the API response
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
     fetchProducts();
     
 
   }, []);
 // console.log(products);
- // const randomProduct = products[Math.floor(Math.random() * products.length)];
+  // const randomProduct = products[Math.floor(Math.random() * products.length)];
   // console.log(randomProduct);
 
 
@@ -55,7 +59,7 @@ export const Mainpage = () => {
       <Header />
       <section className='featuredProducts'>
         <div className='featuredProductInfo h-max text-center py-24 text-3xl text-gray-50 bg-neutral-900'>
-          {/* <p>{randomProduct}</p> */}
+{/*           <p>{randomProduct.name}</p> */}
           <button>Shop Now</button>
         </div>
       </section>
@@ -85,12 +89,7 @@ export const Mainpage = () => {
       )} 
 </div>
 
-      {/* <h2 className='text-center'>Products</h2>
-      <h3 className='border-b-2'>Bouquets</h3>
-      {products.map((product) => (
-        product.category === "bouquet" ?
-        < ProductCard key={product._id} product={product} /> : null
-      ))} */}
+
 
       <Footer/>
     </div>

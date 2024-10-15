@@ -4,8 +4,8 @@ import { UserContext } from '@/context/UserContext';
 import React, { useContext } from 'react';
 
 const Cart = () => {
-  const { cart, removeFromCart } = useContext(UserContext);
-  const image = response.data.imageUrl;
+  const { cart, removeFromCart, increaseQuantity,decreaseQuantity } = useContext(UserContext);
+  //const image = response.data.imageUrl;
 
   const getTotalPrice = () => {
 
@@ -37,7 +37,7 @@ const Cart = () => {
                     >
                       <div className="flex items-center">
                         <img
-                          src={item.productId.imageUrl}  // Ensure you are getting the correct image URL
+                          src={item.productId.image}  // Ensure you are getting the correct image URL
                           alt={item.productId.name}
                           className="w-20 h-20 object-cover rounded-lg"
                         />
@@ -48,9 +48,9 @@ const Cart = () => {
                         </div>
                       </div>
                       <div className="flex space-x-2">
-                        <button onClick={() => increaseQuantity(item.productId)} className="sec-btn-increase">+</button>
-                        <button onClick={() => decreaseQuantity(item.productId)} className="sec-btn-decrease">-</button>
-                        <button onClick={() => removeFromCart(item.productId)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
+                        <button onClick={() => increaseQuantity(item.productId._id)} className="sec-btn-increase">+</button>
+                        <button onClick={() => decreaseQuantity(item.productId._id)} className="sec-btn-decrease">-</button>
+                        <button onClick={() => removeFromCart(item.productId._id)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
                           Remove
                         </button>
                       </div>
