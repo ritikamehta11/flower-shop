@@ -31,7 +31,8 @@ const Cart = () => {
               {/* Cart Items Section */}
               <div className="col-span-2">
                 <ul className="space-y-4">
-                  {cart.map((item, index) => (
+                    { console.log(cart)}
+                      {cart.map((item, index) => (
                     <li
                       key={`${item.productId._id}-${index}`}
                       className="flex items-center justify-between border-b py-4 border-gray-200"
@@ -51,7 +52,7 @@ const Cart = () => {
                       <div className="flex space-x-2">
                         <button onClick={() => increaseQuantity(item.productId._id)} className="sec-btn-increase">+</button>
                         <button onClick={() => decreaseQuantity(item.productId._id)} className="sec-btn-decrease">-</button>
-                        <button onClick={() => removeFromCart(item.productId._id)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
+                        <button onClick={() => removeFromCart(item.productId)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
                           Remove
                         </button>
                       </div>

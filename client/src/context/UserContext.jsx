@@ -34,30 +34,14 @@ export const UserProvider = ({ children }) => {
 
 
 
-  const fetchLatestCartData = async () => {
-    if (!user) {
-      console.error("User not set");
-      return;
-    }
-
-    try {
-      const response = await axios.get(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setCart(response.data.items);
-    } catch (error) {
-      console.error("Error fetching cart", error);
-    }
-  };
 
   const addToCart = async (productId, quantity) => {
     //console.log(user.id);
     if (!user) {
       console.error("User not set");
       return;
-    } else { console.log(user); }
+    }
+    //else { console.log(user); }
 
     try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
@@ -67,8 +51,9 @@ export const UserProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         });
+      console.log(response.data.items);
       setCart(response.data.items);
-      await fetchLatestCartData();
+     // await fetchLatestCartData();
       console.log("cart", cart);
     } catch (error) {
       console.error('Error adding to cart', error);
@@ -94,7 +79,7 @@ export const UserProvider = ({ children }) => {
       // Check if the backend response is valid
       if (response.data && response.data.items) {
         setCart(response.data.items); // Set the new cart state with updated items from the server
-        await fetchLatestCartData();
+        //await fetchLatestCartData();
         console.log("Cart after server response:", response.data.items);
       } else {
         console.error("Unexpected response structure:", response.data);
@@ -122,7 +107,7 @@ export const UserProvider = ({ children }) => {
       });
       // Optionally refetch the cart or adjust the cart state accordingly
       setCart(response.data.items); // Re-fetch the cart to get updated quantities
-      await fetchLatestCartData();
+     // await fetchLatestCartData();
     } catch (error) {
       console.error('Error increasing quantity', error);
     }
@@ -142,7 +127,7 @@ export const UserProvider = ({ children }) => {
       });
       // Optionally refetch the cart or adjust the cart state accordingly
       setCart(response.data.items); // Re-fetch the cart to get updated quantities
-      await fetchLatestCartData();
+     // await fetchLatestCartData();
     } catch (error) {
       console.error('Error decreasing quantity', error);
     }
