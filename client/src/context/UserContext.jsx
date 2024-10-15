@@ -85,8 +85,47 @@ export const UserProvider = ({ children }) => {
   };
 
 
+
+  const increaseQuantity = async (productId) => {
+    if (!user) {
+      console.error("User not set");
+      return;
+    }
+
+    try {
+      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}/increase`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Optionally refetch the cart or adjust the cart state accordingly
+      fetchCart(); // Re-fetch the cart to get updated quantities
+    } catch (error) {
+      console.error('Error increasing quantity', error);
+    }
+  };
+
+  const decreaseQuantity = async (productId) => {
+    if (!user) {
+      console.error("User not set");
+      return;
+    }
+
+    try {
+      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}/decrease`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Optionally refetch the cart or adjust the cart state accordingly
+      fetchCart(); // Re-fetch the cart to get updated quantities
+    } catch (error) {
+      console.error('Error decreasing quantity', error);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart }}>
+    <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart ,increaseQuantity, decreaseQuantity }}>
       {children}
     </UserContext.Provider>
   );

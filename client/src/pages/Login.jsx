@@ -66,7 +66,7 @@ const Login = () => {
             <button className="pri-btn px-9 py-1 text-center font-thin mx-auto block">Login</button>
           </form>
 
-          <p className="text-xs text-center mt-2">Don’t have an account? <Link className='text-blue-600 underline ' to='/login'>Register here</Link></p>
+          <p className="text-xs text-center mt-2">Don’t have an account? <Link className='text-blue-600 underline ' to='/register'>Register here</Link></p>
 
         </div>
       </section>

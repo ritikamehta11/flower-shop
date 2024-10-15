@@ -62,7 +62,60 @@ const deleteItemFromCart= async (req, res) => {
   }
 };
 
-module.exports = {getCart,addToCart,deleteItemFromCart};
+
+
+// increasing or decreasing quantity
+// Increase item quantity in cart
+const increaseItemQuantity = async (req, res) => {
+  const { userId, productId } = req.params;
+
+  try {
+    const cart = await Cart.findOne({ userId });
+    if (!cart) return res.status(404).json({ message: 'Cart not found' });
+
+    const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+    if (existingItemIndex > -1) {
+      cart.items[existingItemIndex].quantity += 1; // Increase quantity by 1
+      await cart.save();
+      res.json(cart);
+    } else {
+      res.status(404).json({ message: 'Product not found in cart' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Decrease item quantity in cart
+const decreaseItemQuantity = async (req, res) => {
+  const { userId, productId } = req.params;
+
+  try {
+    const cart = await Cart.findOne({ userId });
+    if (!cart) return res.status(404).json({ message: 'Cart not found' });
+
+    const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+    if (existingItemIndex > -1) {
+      if (cart.items[existingItemIndex].quantity > 1) {
+        cart.items[existingItemIndex].quantity -= 1; // Decrease quantity by 1
+      } else {
+        // If quantity is 1, you might want to remove it from the cart instead
+        cart.items.splice(existingItemIndex, 1);
+      }
+      await cart.save();
+      res.json(cart);
+    } else {
+      res.status(404).json({ message: 'Product not found in cart' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Add routes for increase and decrease quantity
+
+
+module.exports = {getCart,addToCart,deleteItemFromCart, increaseItemQuantity, decreaseItemQuantity};
 
 
 // router.get('/:userId', authenticate,    router.post('/', authenticate  router.delete('/:userId/product/:productId', authenticate,
