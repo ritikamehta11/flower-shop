@@ -30,7 +30,7 @@ export const Mainpage = () => {
 
   }, []);
 // console.log(products);
-  const randomProduct = products[Math.floor(Math.random() * products.length)];
+ // const randomProduct = products[Math.floor(Math.random() * products.length)];
   // console.log(randomProduct);
 
 
@@ -55,7 +55,7 @@ export const Mainpage = () => {
       <Header />
       <section className='featuredProducts'>
         <div className='featuredProductInfo h-max text-center py-24 text-3xl text-gray-50 bg-neutral-900'>
-          <p>{randomProduct.name}</p>
+          {/* <p>{randomProduct}</p> */}
           <button>Shop Now</button>
         </div>
       </section>
