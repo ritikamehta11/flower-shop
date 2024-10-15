@@ -1,13 +1,12 @@
 import { Footer } from '@/components/Footer';
 import Header from '@/components/Header';
 import { UserContext } from '@/context/UserContext';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 const Cart = () => {
 
   const { cart, removeFromCart, increaseQuantity,decreaseQuantity } = useContext(UserContext);
   //const image = response.data.imageUrl;
-
 
   const getTotalPrice = () => {
 
