@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
         console.log("Cart after server response:", response.data.items);
 
         // Update the cart with the new state after removal
-        const updatedCart = cart.filter(item => item.productId._id !== productId);
+        const updatedCart = cart.filter(item => item.productId !== productId);
 
         // Update the cart state
         setCart(updatedCart);
