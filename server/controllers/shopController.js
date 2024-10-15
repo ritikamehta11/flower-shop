@@ -58,10 +58,7 @@ console.log(newProduct);
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({
-            message: 'Failed to create product',
-            error: error.message
-        });
+        
     }
 };
 
