@@ -9,6 +9,7 @@ export const ProductCard = ({ product }) => {
   const { user } = useContext(UserContext);
   console.log(product);
  // const image = response.data.imageUrl;
+
   
   const handleAddToCart = () => {
  console.log(user);

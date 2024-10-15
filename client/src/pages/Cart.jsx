@@ -4,8 +4,10 @@ import { UserContext } from '@/context/UserContext';
 import React, { useContext } from 'react';
 
 const Cart = () => {
+
   const { cart, removeFromCart, increaseQuantity,decreaseQuantity } = useContext(UserContext);
   //const image = response.data.imageUrl;
+
 
   const getTotalPrice = () => {
 

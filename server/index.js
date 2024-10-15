@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: 'https://flower-shop-frontend-o8f7.onrender.com',
-    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
     allowedHeaders: [
       'Content-Type',
       'Authorization',
