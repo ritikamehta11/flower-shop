@@ -32,9 +32,10 @@ const createProduct = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: 'No image uploaded' });
         }
-
+console.log("working fine");
         // Get the Cloudinary image URL from the uploaded file
       const imageUrl = await cloudinary.uploader.upload(req.file.path);
+console.log("imageurl",imageUrl);
       const image = imageUrl.secure_url;
       console.log(image);
 
@@ -46,7 +47,7 @@ const createProduct = async (req, res) => {
             category: req.body.category,
             image: image, // Store the Cloudinary URL in the product
         });
-
+console.log(newProduct); 
         // Save the product in the database
         await newProduct.save();
 
@@ -56,11 +57,8 @@ const createProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error.response.data);
-        res.status(500).json({
-            message: 'Failed to create product',
-            error: error.message
-        });
+        console.log(error);
+        
     }
 };
 

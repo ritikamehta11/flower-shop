@@ -25,20 +25,20 @@ export const AddProduct = () => {
     formData.append('description', description);
     formData.append('image', image); // Add the image file
     formData.append('category', category);
+console.log(Array.from(formData.entries()));
 
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post("https://flower-shop-backend-81tw.onrender.com/api/shop/create", formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data', // Specify the content type
+          'Authorization': `Bearer ${token}`
         },
       });
       console.log(formData);
       navigate('/admin/allproducts');
     } catch (error) {
       
-      console.log(error);
+      console.log(error.response.data);
     }
   };
 
