@@ -25,6 +25,7 @@ export const AddProduct = () => {
     formData.append('description', description);
     formData.append('image', image); // Add the image file
     formData.append('category', category);
+console.log(Array.from(formData.entries()));
 
     try {
       const token = localStorage.getItem('token');
