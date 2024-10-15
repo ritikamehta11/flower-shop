@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 export const ProductCardAdmin = ({ product, onDelete }) => {
-
+  const image = response.data.image;
 
   const handleDelete = async () => {
     try {
@@ -23,7 +23,7 @@ export const ProductCardAdmin = ({ product, onDelete }) => {
   };
   return (
     <section className='flex flex-row'>
-      <img src={product.image} alt="" />
+      <img src={image} alt="" />
       <div className='productInfo basis-2/3'>
       <p><span className='labels'>Name:</span>  {product.name}</p>
       <p><span className='labels'>Price: </span> {product.price}</p>

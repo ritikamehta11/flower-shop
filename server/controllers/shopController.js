@@ -35,7 +35,8 @@ const createProduct = async (req, res) => {
 
         // Get the Cloudinary image URL from the uploaded file
       const imageUrl = await cloudinary.uploader.upload(req.file.path);
-        const image = result.secure_url;
+      const image = imageUrl.secure_url;
+      console.log(image);
 
         // Create the new product with the provided data and image URL
         const newProduct = new Product({
