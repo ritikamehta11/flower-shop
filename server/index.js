@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8888;
 // MIDDLEWARES
 app.use(cookieParser());
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+//app.use('/uploads', express.static('uploads'));
 
 
 app.use(
