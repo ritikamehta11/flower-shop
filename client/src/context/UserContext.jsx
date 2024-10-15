@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
       };
       fetchCart();
     }
-  }, [user, token]);
+  }, [user, token, cart]);
 
   const addToCart = async (productId, quantity) => {
     //console.log(user.id);
@@ -99,7 +99,7 @@ export const UserProvider = ({ children }) => {
         },
       });
       // Optionally refetch the cart or adjust the cart state accordingly
-      fetchCart(); // Re-fetch the cart to get updated quantities
+    setCart(response.data.items); // Re-fetch the cart to get updated quantities
     } catch (error) {
       console.error('Error increasing quantity', error);
     }
@@ -118,7 +118,7 @@ export const UserProvider = ({ children }) => {
         },
       });
       // Optionally refetch the cart or adjust the cart state accordingly
-      fetchCart(); // Re-fetch the cart to get updated quantities
+      setCart(response.data.items);// Re-fetch the cart to get updated quantities
     } catch (error) {
       console.error('Error decreasing quantity', error);
     }
