@@ -31,8 +31,8 @@ const Cart = () => {
               {/* Cart Items Section */}
               <div className="col-span-2">
                 <ul className="space-y-4">
-                    { console.log(cart)}
-                      {cart.map((item, index) => (
+                  {console.log("cart in cart.jsx",cart)}
+                  {cart.map((item, index) => (
                     <li
                       key={`${item.productId._id}-${index}`}
                       className="flex items-center justify-between border-b py-4 border-gray-200"
