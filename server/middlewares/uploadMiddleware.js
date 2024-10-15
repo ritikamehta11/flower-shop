@@ -13,7 +13,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'your_folder_name', // Optional: specify a folder name for organization
+    folder: 'items', // Optional: specify a folder name for organization
     allowed_formats: ['jpg', 'png', 'jpeg'], // Allowed image formats
   },
 });

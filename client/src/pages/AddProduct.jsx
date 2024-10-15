@@ -30,7 +30,7 @@ export const AddProduct = () => {
           'Content-Type': 'multipart/form-data', // Specify the content type
         },
       });
-
+      console.log(formData);
       navigate('/admin/allproducts');
     } catch (error) {
       

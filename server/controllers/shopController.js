@@ -27,25 +27,40 @@ const getProducts = async (req, res) => {
 
 // Create new product (Admin only)
 const createProduct = async (req, res) => {
-    const { name, price, description, category } = req.body;
-  const image = await cloudinary.uploader.upload(req.file.path);;
     try {
-        const product = new Product({
-            name,
-            price,
-            description,
-          image,
-            category,
+        // Check if the file was uploaded
+        if (!req.file) {
+            return res.status(400).json({ message: 'No image uploaded' });
+        }
+
+        // Get the Cloudinary image URL from the uploaded file
+        const imageUrl = req.file.path;
+
+        // Create the new product with the provided data and image URL
+        const newProduct = new Product({
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+            image: imageUrl, // Store the Cloudinary URL in the product
         });
 
-        await product.save();
-        res.json(product);
+        // Save the product in the database
+        await newProduct.save();
+
+        res.status(201).json({
+            message: 'Product created successfully',
+            product: newProduct
+        });
+
     } catch (error) {
-      // res.status(500).json({ error: 'Server error' });
-      console.log(error);
+        console.error('Error creating product:', error);
+        res.status(500).json({
+            message: 'Failed to create product',
+            error: error.message
+        });
     }
 };
-
 
 const updateProduct = async (req, res) => {
   try {
