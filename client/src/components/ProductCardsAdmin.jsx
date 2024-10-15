@@ -23,7 +23,7 @@ export const ProductCardAdmin = ({ product, onDelete }) => {
   };
   return (
     <section className='flex flex-row'>
-      <img src={`https://flower-shop-backend-81tw.onrender.com/${product.image}`} alt="" />
+      <img src={product.image} alt="" />
       <div className='productInfo basis-2/3'>
       <p><span className='labels'>Name:</span>  {product.name}</p>
       <p><span className='labels'>Price: </span> {product.price}</p>

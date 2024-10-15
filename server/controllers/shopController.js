@@ -28,7 +28,7 @@ const getProducts = async (req, res) => {
 // Create new product (Admin only)
 const createProduct = async (req, res) => {
     const { name, price, description, category } = req.body;
-  const image = req.file ? req.file.path : '';
+  const image = await cloudinary.uploader.upload(req.file.path);;
     try {
         const product = new Product({
             name,
