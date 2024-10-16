@@ -35,8 +35,8 @@ const ProductDetails = () => {
   return (
     <div>
       <Header />
-      <div className="product-details p-4">
-        <img src={product.image} alt={product.name} className="w-full h-auto" />
+      <div className="product-details p-4 w-1/3">
+        <img src={product.image} alt={product.name} className="w-3/4 h-auto" />
         <h2 className="text-2xl font-bold">{product.name}</h2>
         <p className="text-lg">{product.description}</p>
         <p className="text-xl font-semibold">{`Price: $${product.price}`}</p>
