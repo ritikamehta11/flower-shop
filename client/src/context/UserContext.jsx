@@ -62,7 +62,7 @@ export const UserProvider = ({ children }) => {
 
   const removeFromCart = async (productId) => {
     if (!user) {
-      console.error("User not set");
+      console.error("User is not authenticated. Please log in.");
       return;
     }
 
@@ -70,7 +70,12 @@ export const UserProvider = ({ children }) => {
       console.log(`Attempting to remove product with ID: ${productId}`);
 
       // Send the DELETE request to the backend
-      console.log(productId);
+      const token = localStorage.getItem('token'); // Ensure token is available
+      if (!token) {
+        console.error("Authorization token is missing.");
+        return;
+      }
+
       const response = await axios.delete(
         `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`,
         {
@@ -80,21 +85,23 @@ export const UserProvider = ({ children }) => {
         }
       );
 
-      // Ensure the backend successfully removes the item
-      if (response.status === 200 && response.data && response.data.items) {
+      // Check if the response contains the expected data
+      if (response.status === 200 && response.data?.items) {
         console.log("Cart after server response:", response.data.items);
 
-        // Update the cart with the new state after removal
-        const updatedCart = cart.items.filter(item => item.productId._id !== productId);
-        setCart({ ...cart, items: updatedCart });
-
-        // Update the cart state
-       
+        // Update the cart by removing the product
+        const updatedCart = cart?.items?.filter(item => item.productId._id !== productId);
+        if (updatedCart) {
+          setCart({ ...cart, items: updatedCart });
+          console.log("Product removed successfully from cart.");
+        } else {
+          console.error("Error: Cart is not defined or does not have items.");
+        }
       } else {
-        console.error("Unexpected response structure or failed request:", response.data);
+        console.error("Unexpected response or failed request. Response:", response);
       }
     } catch (error) {
-      console.error("Error removing from cart", error);
+      console.error("Error occurred while removing the product from the cart:", error);
     }
   };
 
