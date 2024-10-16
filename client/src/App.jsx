@@ -12,6 +12,7 @@ import { UpdateProduct } from './pages/UpdateProduct';
 import { UserContext } from './context/UserContext';
 import Cart from './pages/Cart';
 import { Users } from './pages/Users';
+import ProductDetails from './pages/ProductDetails';
 
 
 function App() {
