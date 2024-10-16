@@ -1,14 +1,15 @@
 // ProductDetails.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { UserContext } from '@/context/UserContext';
 
 const ProductDetails = () => {
   const { productId } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
-
+  const { addToCart } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProductDetails = async () => {

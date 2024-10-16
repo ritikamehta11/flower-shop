@@ -22,8 +22,8 @@ export const ProductCardAdmin = ({ product, onDelete }) => {
     }
   };
   return (
-    <section className='flex flex-row w-3/12'>
-      <img src={product.image} className="w-1/3" alt="product image" />
+    <section className='flex flex-row w-3/5'>
+      <img src={product.image} className="w-3/4" alt="product image" />
       <div className='productInfo basis-2/3'>
       <p><span className='labels'>Name:</span>  {product.name}</p>
       <p><span className='labels'>Price: </span> {product.price}</p>
