@@ -53,7 +53,7 @@ export const UserProvider = ({ children }) => {
         });
       console.log(response.data.items);
       setCart(response.data.items);
-     // await fetchLatestCartData();
+      // await fetchLatestCartData();
       console.log("cart", cart);
     } catch (error) {
       console.error('Error adding to cart', error);
@@ -62,7 +62,7 @@ export const UserProvider = ({ children }) => {
 
   const removeFromCart = async (productId) => {
     if (!user) {
-      console.error("User is not authenticated. Please log in.");
+      console.error("User not set");
       return;
     }
 
@@ -70,12 +70,7 @@ export const UserProvider = ({ children }) => {
       console.log(`Attempting to remove product with ID: ${productId}`);
 
       // Send the DELETE request to the backend
-      const token = localStorage.getItem('token'); // Ensure token is available
-      if (!token) {
-        console.error("Authorization token is missing.");
-        return;
-      }
-
+      console.log(productId);
       const response = await axios.delete(
         `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`,
         {
@@ -85,23 +80,21 @@ export const UserProvider = ({ children }) => {
         }
       );
 
-      // Check if the response contains the expected data
-      if (response.status === 200 && response.data?.items) {
+      // Ensure the backend successfully removes the item
+      if (response.status === 200 && response.data && response.data.items) {
         console.log("Cart after server response:", response.data.items);
 
-        // Update the cart by removing the product
-        const updatedCart = cart?.items?.filter(item => item.productId._id !== productId);
-        if (updatedCart) {
-          setCart({ ...cart, items: updatedCart });
-          console.log("Product removed successfully from cart.");
-        } else {
-          console.error("Error: Cart is not defined or does not have items.");
-        }
+        // Update the cart with the new state after removal
+        const updatedCart = cart.items.filter(item => item.productId._id !== productId);
+        setCart({ ...cart, items: updatedCart });
+
+        // Update the cart state
+
       } else {
-        console.error("Unexpected response or failed request. Response:", response);
+        console.error("Unexpected response structure or failed request:", response.data);
       }
     } catch (error) {
-      console.error("Error occurred while removing the product from the cart:", error);
+      console.error("Error removing from cart", error);
     }
   };
 
@@ -122,7 +115,7 @@ export const UserProvider = ({ children }) => {
       });
       // Optionally refetch the cart or adjust the cart state accordingly
       setCart(response.data.items); // Re-fetch the cart to get updated quantities
-     // await fetchLatestCartData();
+      // await fetchLatestCartData();
     } catch (error) {
       console.error('Error increasing quantity', error);
     }
@@ -142,7 +135,7 @@ export const UserProvider = ({ children }) => {
       });
       // Optionally refetch the cart or adjust the cart state accordingly
       setCart(response.data.items); // Re-fetch the cart to get updated quantities
-     // await fetchLatestCartData();
+      // await fetchLatestCartData();
     } catch (error) {
       console.error('Error decreasing quantity', error);
     }
