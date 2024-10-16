@@ -90,7 +90,7 @@ export const UserProvider = ({ children }) => {
         console.log("Cart after server response:", response.data.items);
 
         // Update the cart by removing the product
-        const updatedCart = cart?.items?.filter(item => item.productId._id !== productId);
+        const updatedCart = cart?.items?.filter(item => item._id !== productId);
         if (updatedCart) {
           setCart({ ...cart, items: updatedCart });
           console.log("Product removed successfully from cart.");
