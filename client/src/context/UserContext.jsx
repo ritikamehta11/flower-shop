@@ -90,6 +90,7 @@ export const UserProvider = ({ children }) => {
 
         // Update the cart state
 
+
       } else {
         console.error("Unexpected response structure or failed request:", response.data);
       }
