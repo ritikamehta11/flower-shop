@@ -70,7 +70,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_KEY,
-      { expiresIn: '7d' }
+      { expiresIn: '14d' }
     );
 
     // Return the token and user details
@@ -101,9 +101,9 @@ const getUsers = async (req, res) => {
 };
 
 const deleteUsers = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
   try {
-    const user = await User.findByIdAndDelete(userId);
+    const user = await User.findByIdAndDelete(id);
     res.json(user);
   } catch (error) {
     res.json(error);
