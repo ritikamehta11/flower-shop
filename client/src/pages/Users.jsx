@@ -42,6 +42,7 @@ export const Users = () => {
       await axios.delete(`https://flower-shop-backend-81tw.onrender.com/api/auth/delete/${id}`);
       setMessage("deleted successfully");
     } catch (error) {
+      const errorMessage = error.response?.data?.message;
       setMessage(error);
     }
   }
