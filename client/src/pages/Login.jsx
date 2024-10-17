@@ -2,8 +2,6 @@ import {useState, useContext } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext';
-
-
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import img from '../assets/images/homepageMain.png';
@@ -20,10 +18,6 @@ const Login = () => {
       
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/login', { email, password });
       
-
-      // alert("done");
-
-
       if (response.data.token) {
         const { user, token } = response.data;
         const { role } = response.data.user; // Assuming the response structure includes user data
