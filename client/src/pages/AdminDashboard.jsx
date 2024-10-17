@@ -2,7 +2,6 @@ import Header from '@/components/Header';
 import React, { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 
 export const AdminDashboard = () => {
