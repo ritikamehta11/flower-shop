@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 export const Users = () => {
 
   const [Users, setUsers] = useState([]);
-
+  const [message, setMessage] = useState('');
   useEffect(() => {
     const getUsers = async () => {
       
@@ -33,9 +33,17 @@ export const Users = () => {
     
   // }
 
-  const handleDelete = (id) => {
-    const newUsers = Users.filter((userId) => userId !== id);
+  const handleDelete = async(id) => {
+    
+    try {
+      const newUsers = Users.filter((user) => user._id !== id);
     setUsers(newUsers);
+
+      await axios.delete(`https://flower-shop-backend-81tw.onrender.com/api/auth/delete/${id}`);
+      setMessage("deleted successfully");
+    } catch (error) {
+      setMessage(error);
+    }
   }
   return (
     <>
@@ -73,6 +81,7 @@ export const Users = () => {
               </tr>
             ))}
           </tbody>
+          <p>{message}</p>
         </table>
         </section>
     </>

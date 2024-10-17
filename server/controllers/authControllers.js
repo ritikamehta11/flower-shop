@@ -100,4 +100,14 @@ const getUsers = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUsers };
+const deleteUsers = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    res.json(user);
+  } catch (error) {
+    res.json(error);
+  }
+}
+
+module.exports = { register, login, getUsers , deleteUsers};
