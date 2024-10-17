@@ -1,10 +1,16 @@
 import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   console.log("on site opening", user, "         user role:", user.role);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate('/login');
+}
+
   if (!user) {
     return (
       <>
@@ -39,7 +45,7 @@ export default function Navbar() {
           </ul>
           <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
             <li><Link to='/cart'>Cart</Link></li>
-            <li><Link to='/register'>Register</Link></li>
+            <li><Link onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav></>
     )
@@ -57,7 +63,7 @@ export default function Navbar() {
         </ul>
         <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
           <li><Link to='/cart'></Link></li>
-          <li><Link to='/register'>Register</Link></li>
+          <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
       </nav></>
   }
