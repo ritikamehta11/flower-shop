@@ -16,12 +16,12 @@ const Register = () => {
 
   const validateUser = () => {
     const newErrors = {};
-    if (!name) return newErrors.name = "Name is required";
-    if (!email) return newErrors.email = "Email is required";
-    if (!phone) return newErrors.phone = "Phone is required";
+    if (!name)  newErrors.name = "Name is required";
+    if (!email)  newErrors.email = "Email is required";
+    if (!phone)  newErrors.phone = "Phone is required";
 
-    if (!password) return newErrors.password = "Password is required";
-    else if (password.length <= 6) return newErrors.password = "Password should be of more that 6 characters";
+    if (!password)  newErrors.password = "Password is required";
+    else if (password.length <= 6) newErrors.password = "Password should be of more that 6 characters";
 
     setErrors(newErrors);
 
@@ -44,8 +44,8 @@ const Register = () => {
     }
     catch (error) {
      
-      setMessage(error);
-        < Error text = { error } />
+      setMessage(error.response?.data?.message || "Registration failed. Please try again.");
+        
     }
   };
 
