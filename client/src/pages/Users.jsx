@@ -43,7 +43,7 @@ export const Users = () => {
       setMessage("deleted successfully");
     } catch (error) {
       const errorMessage = error.response?.data?.message;
-      setMessage(error);
+      setMessage(errorMessage);
     }
   }
   return (
