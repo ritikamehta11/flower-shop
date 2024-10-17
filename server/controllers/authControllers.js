@@ -102,11 +102,21 @@ const getUsers = async (req, res) => {
 
 const deleteUsers = async (req, res) => {
   const { id } = req.params;
-  try {
-    const user = await User.findByIdAndDelete(id);
-    res.json(user);
+ try {
+    // Attempt to find and delete the user
+    const user = await User.findByIdAndDelete(userId);
+
+    // Check if the user was found and deleted
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' }); // Return 404 if not found
+    }
+
+    // Return the deleted user data
+    res.status(200).json({ message: 'User deleted successfully', user });
   } catch (error) {
-    res.json(error);
+    // Handle any errors that occur
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error });
   }
 }
 
