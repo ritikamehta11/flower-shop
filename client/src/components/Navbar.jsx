@@ -3,11 +3,12 @@ import { useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   console.log("on site opening", user, "         user role:", user.role);
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setUser(null);
     navigate('/login');
 }
 
