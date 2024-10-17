@@ -16,15 +16,15 @@ const Register = () => {
 
   const validateUser = () => {
     const newErrors = {};
-    if (!name)  newErrors.name = "Name is required";
-    if (!email)  newErrors.email = "Email is required";
-    if (!phone)  newErrors.phone = "Phone is required";
+    if (name==="")  newErrors.name = "Name is required";
+    if (email==="")  newErrors.email = "Email is required";
+    if (phone===null)  newErrors.phone = "Phone is required";
 
-    if (!password)  newErrors.password = "Password is required";
+    if (password==="")  newErrors.password = "Password is required";
     else if (password.length <= 6) newErrors.password = "Password should be of more that 6 characters";
 
     setErrors(newErrors);
-
+    console.log("errors during registeration: ", errors);
     return Object.keys(newErrors).length === 0;
   }
 
