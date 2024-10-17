@@ -18,7 +18,7 @@ const Register = () => {
     const newErrors = {};
     if (name==="")  newErrors.name = "Name is required";
     if (email==="")  newErrors.email = "Email is required";
-    if (phone===null)  newErrors.phone = "Phone is required";
+    if (phone==="")  newErrors.phone = "Phone is required";
 
     if (password==="")  newErrors.password = "Password is required";
     else if (password.length <= 6) newErrors.password = "Password should be of more that 6 characters";
@@ -40,11 +40,14 @@ const Register = () => {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/register', { name, email, phone, password });
 
       setMessage(response.data.message);
-      navigate('/login');
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+      
     }
     catch (error) {
      
-      setMessage(error.response?.data?.message || "Registration failed. Please try again.");
+      setMessage(error.response?.data?.message);
         
     }
   };

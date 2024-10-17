@@ -27,7 +27,7 @@ const { user } = useContext(UserContext);
         <div className='flex flex-row flex-wrap mb-8 gap-5' >
           <div className='dashboardLinks '><Link to='/admin/allproducts'>All Products</Link></div>
       
-          <div className='dashboardLinks '><Link to='/'>All orders</Link></div>
+          <div className='dashboardLinks '><Link to='/admin/orders'>All orders</Link></div>
           <div className='dashboardLinks '><Link to='/'>All transactions</Link></div>
           <div className='dashboardLinks '><Link to='/'>All Customers</Link></div>
           <div className='dashboardLinks '><Link to='/'>Inventory</Link></div>

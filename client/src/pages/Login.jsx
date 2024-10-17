@@ -16,9 +16,9 @@ const Login = () => {
   
   const validateUser = () => {
       const newErrors = {};
-      if (!email) return newErrors.email = "email is required";
-      if (!password) return newErrors.password = "password is required";
-      else if (password.length <= 6) return newErrors.password = "password should be of more that 6 characters";
+      if (!email) newErrors.email = "email is required";
+      if (!password) newErrors.password = "password is required";
+      else if (password.length <= 6) newErrors.password = "password should be of more that 6 characters";
 
       setErrors(newErrors);
 
@@ -28,12 +28,12 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!validateUser()) {
-      return;
-  }
+    
 
     try {
-      
+      if (!validateUser()) {
+      return;
+  }
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/login', { email, password });
       
       if (response.data.token) {

@@ -41,7 +41,7 @@ function App() {
       <Route path='/admin/createproduct' element={<AddProduct />} />
       <Route path='/admin/updateproductbyid/:id' element={<UpdateProduct />} />
       <Route path='/cart' element={<Cart />} />
-      <Route path='/users' element={<Users />} />
+      <Route path='/admin/users' element={<Users />} />
       <Route path="/product/:productId" element={<ProductDetails />} />
     </Routes>
 
