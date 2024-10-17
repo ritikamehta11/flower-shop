@@ -29,7 +29,7 @@ const { user } = useContext(UserContext);
       
           <div className='dashboardLinks '><Link to='/admin/orders'>All orders</Link></div>
           <div className='dashboardLinks '><Link to='/'>All transactions</Link></div>
-          <div className='dashboardLinks '><Link to='/'>All Customers</Link></div>
+          <div className='dashboardLinks '><Link to='/admin/users'>All Customers</Link></div>
           <div className='dashboardLinks '><Link to='/'>Inventory</Link></div>
 
 
