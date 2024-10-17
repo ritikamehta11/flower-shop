@@ -24,7 +24,7 @@ export const Users = () => {
     };
 
     getUsers();
-  },[Users]);
+  },[]);
 
 
 
