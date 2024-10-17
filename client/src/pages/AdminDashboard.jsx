@@ -1,16 +1,20 @@
 import Header from '@/components/Header';
-import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export const AdminDashboard = () => {
-
+  const navigate = useNavigate();
 const { user } = useContext(UserContext);
 
   const token = localStorage.getItem('token');
   console.log(token);
+
+
+  if (!user) {
+    navigate('/login'); return null;
+  }
   return (
     <section className='h-screen flex flex-col'>
       <Header/>
