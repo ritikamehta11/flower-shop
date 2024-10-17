@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { user } = useContext(UserContext);
-
+  console.log("on site opening", user, "         user role:", user.role);
   if (!user) {
     return (
       <>
