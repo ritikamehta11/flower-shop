@@ -5,7 +5,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log("on site opening", user, "         user role:", user.role);
+  console.log("on site opening", user, "         user role:", user?.role);
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
@@ -54,6 +54,7 @@ export default function Navbar() {
 
 
   else if (user?.role === "admin") {
+    return(
     <>
 
       <nav className='flex flex-wrap flex-row  basis-2/4  w-4/5 ' >
@@ -66,6 +67,6 @@ export default function Navbar() {
           <li><Link to='/cart'></Link></li>
           <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
-      </nav></>
+      </nav></>)
   }
 }
