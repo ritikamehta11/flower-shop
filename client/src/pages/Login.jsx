@@ -9,11 +9,29 @@ import img from '../assets/images/homepageMain.png';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   
+  
+  const validateUser = () => {
+      const newErrors = {};
+      if (!email) return newErrors.email = "email is required";
+      if (!password) return newErrors.password = "password is required";
+      else if (password.length <= 6) return newErrors.password = "password should be of more that 6 characters";
+
+      setErrors(newErrors);
+
+      return Object.keys(newErrors).length === 0;
+    }
+  
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!validateUser()) {
+      return;
+  }
+
     try {
       
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/login', { email, password });
@@ -54,9 +72,9 @@ const Login = () => {
           <form onSubmit={handleLogin} >
 
             <input className='input mb-2' type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-
+            {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className='input mb-2' />
-
+            {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
             <button className="pri-btn px-9 py-1 text-center font-thin mx-auto block">Login</button>
           </form>
 

@@ -10,11 +10,32 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
+
+  const validateUser = () => {
+    const newErrors = {};
+    if (!name) return newErrors.name = "Name is required";
+    if (!email) return newErrors.email = "Email is required";
+    if (!phone) return newErrors.phone = "Phone is required";
+
+    if (!password) return newErrors.password = "Password is required";
+    else if (password.length <= 6) return newErrors.password = "Password should be of more that 6 characters";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  }
+
+
 
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!validateUser) {
+      return;
+    }
     try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/register', { name, email, phone, password });
 
@@ -45,9 +66,15 @@ const Register = () => {
 
           <form onSubmit={handleRegister}>
             <input className='input mb-2' type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
             <input className='input mb-2' type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+
             <input className='input mb-2' type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" />
+            {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
+
             <input className='input mb-2' type="string" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+            {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
 
             <button className="pri-btn px-9 py-1 text-center font-thin mx-auto block" type="submit">Register</button>
 
