@@ -10,9 +10,9 @@ export default function Navbar() {
     localStorage.removeItem("token");
     setUser(null);
     navigate('/login');
-}
+  }
 
-  if (!user) {
+  if (user === null) {
     return (
       <>
 
@@ -31,7 +31,7 @@ export default function Navbar() {
         </nav></>
     )
   }
-  else if (user.role === "user") {
+  else if (user?.role === "user") {
     return (
 
       <>
@@ -53,7 +53,7 @@ export default function Navbar() {
   }
 
 
-  else if (user.role === "admin") {
+  else if (user?.role === "admin") {
     <>
 
       <nav className='flex flex-wrap flex-row  basis-2/4  w-4/5 ' >
