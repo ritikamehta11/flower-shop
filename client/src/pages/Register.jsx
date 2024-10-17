@@ -33,10 +33,10 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (!validateUser) {
+    
+    try {if (!validateUser) {
       return;
     }
-    try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/auth/register', { name, email, phone, password });
 
       setMessage(response.data.message);
