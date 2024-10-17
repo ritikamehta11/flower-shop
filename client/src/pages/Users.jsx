@@ -9,7 +9,7 @@ export const Users = () => {
     const getUsers = async () => {
       
       try {
-      
+        const token = localStorage.getItem('token');
         const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/auth/users', {
           headers: {
             Authorization: `Bearer ${token}` // Pass token if authentication is required
