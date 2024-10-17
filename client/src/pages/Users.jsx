@@ -60,7 +60,7 @@ export const Users = () => {
           </thead>
           <tbody>
             {Users.map((user) => (
-              <tr key={user.id} className="text-center">
+              <tr key={user._id} className="text-center">
                 <td className="border px-4 py-2">{user.name}</td>
                 <td className="border px-4 py-2">{user.email}</td>
                 <td className="border px-4 py-2">{user.phone}</td>
@@ -73,7 +73,7 @@ export const Users = () => {
                   </button>
                   <button
                     className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
-                    onClick={() => handleDelete(user.id)}
+                    onClick={() => handleDelete(user._id)}
                   >
                     Delete
                   </button>
