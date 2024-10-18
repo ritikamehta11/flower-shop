@@ -44,9 +44,9 @@ const addToCart= async (req, res) => {
 };
 
 // Remove item from cart
-const Cart = require('../models/Cart'); // Adjust the path as needed
 
-const removeItemFromCart = async (req, res) => {
+
+const deleteItemFromCart = async (req, res) => {
   const { userId, productId } = req.params;
 
   try {
