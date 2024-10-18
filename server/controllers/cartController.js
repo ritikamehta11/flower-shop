@@ -7,6 +7,8 @@ const Cart = require('../models/cartModel');
 const getCart= async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.params.userId }).populate('items.product');
+    console.log("cart at backend", cart);
+    console.log("cart items in the backend:", cart.items);
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -15,23 +17,26 @@ const getCart= async (req, res) => {
 
 // Add item to cart
 const addToCart= async (req, res) => {
-  const { userId, product, quantity } = req.body;
+  const { userId, pid, quantity } = req.body;
   
   try {
     let cart = await Cart.findOne({ userId }).populate('items.product');
     
     if (!cart) {
-      cart = new Cart({ userId, items: [] });
+      cart = new Cart({
+        userId,
+        items: [{ product: pid, quantity}],
+      });
     }
 
-    const existingItemIndex = cart.items.findIndex(item => item.product.toString === product._id);
+    const existingItemIndex = cart.items.findIndex(item => item.product.toString === pid);
     
     if (existingItemIndex > -1) {
       // If the item already exists, update the quantity
       cart.items[existingItemIndex].quantity += quantity;
     } else {
       // If the item does not exist, add it to the cart
-      cart.items.push({ product, quantity });
+      cart.items.push({ product: pid, quantity });
     }
 
     await cart.save();

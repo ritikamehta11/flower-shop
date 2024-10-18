@@ -48,7 +48,7 @@ const Cart = () => {
                           <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
                           <p className="text-sm text-gray-500">Price: ${item.product.price}</p>
                         </div>
-                      </div>
+                      </div> 
                       <div className="flex space-x-2">
                         <button onClick={() => increaseQuantity(item.product)} className="sec-btn-increase">+</button>
                         <button onClick={() => decreaseQuantity(item.product)} className="sec-btn-decrease">-</button>

@@ -23,7 +23,10 @@ export const UserProvider = ({ children }) => {
               Authorization: `Bearer ${token}`,
             },
           });
+          console.log("reponse data at react:", reponse.data);
+          console.log("response data ietms at react:", response.data.items);
           setCart(response.data.items);
+         
         } catch (error) {
           console.error("Error fetching cart", error);
         }
@@ -35,22 +38,22 @@ export const UserProvider = ({ children }) => {
 
 
 
-  const addToCart = async (product, quantity) => {
+  const addToCart = async (pid, quantity) => {
     //console.log(user.id);
     if (!user) {
       console.error("User not set");
       return;
     }
     //else { console.log(user); }
-    console.log("product", product);
+    console.log("id of the product while adding to cart:", pid);
     try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
-        { userId: user.id, product, quantity },
+        { userId: user.id, pid, quantity },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
+        }); 
       console.log(response.data.items);
       setCart(response.data.items);
       // await fetchLatestCartData();

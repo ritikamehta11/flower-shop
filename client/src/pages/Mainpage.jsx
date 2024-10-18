@@ -22,7 +22,7 @@ export const Mainpage = () => {
           //                                , {
           // headers: {
           //   Authorization: `Bearer ${token}`
-          // } }
+          // } } 
        );
         console.log("API Response:", response.data); // Log the API response
         setProducts(response.data);
