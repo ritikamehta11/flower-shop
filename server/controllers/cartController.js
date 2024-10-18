@@ -29,7 +29,7 @@ const addToCart= async (req, res) => {
       });
     }
 
-    const existingItemIndex = cart.items.findIndex(item => item.product.toString() === pid);
+    const existingItemIndex = cart.items.findIndex(item => item.product._id.toString() === pid);
     
     if (existingItemIndex > -1) {
       // If the item already exists, update the quantity
