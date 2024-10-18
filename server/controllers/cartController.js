@@ -77,13 +77,13 @@ const deleteItemFromCart = async (req, res) => {
 // increasing or decreasing quantity
 // Increase item quantity in cart
 const increaseItemQuantity = async (req, res) => {
-  const { userId, productId } = req.params;
+  const { userId, product } = req.params;
 
   try {
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+    const existingItemIndex = cart.items.findIndex(item => item.product.toString() === product);
     if (existingItemIndex > -1) {
       cart.items[existingItemIndex].quantity += 1; // Increase quantity by 1
       await cart.save();
@@ -98,13 +98,13 @@ const increaseItemQuantity = async (req, res) => {
 
 // Decrease item quantity in cart
 const decreaseItemQuantity = async (req, res) => {
-  const { userId, productId } = req.params;
+  const { userId, product } = req.params;
 
   try {
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+    const existingItemIndex = cart.items.findIndex(item => item.product.toString() === product);
     if (existingItemIndex > -1) {
       if (cart.items[existingItemIndex].quantity > 1) {
         cart.items[existingItemIndex].quantity -= 1; // Decrease quantity by 1
@@ -127,5 +127,3 @@ const decreaseItemQuantity = async (req, res) => {
 
 module.exports = {getCart,addToCart,deleteItemFromCart, increaseItemQuantity, decreaseItemQuantity};
 
-
-// router.get('/:userId', authenticate,    router.post('/', authenticate  router.delete('/:userId/product/:productId', authenticate,

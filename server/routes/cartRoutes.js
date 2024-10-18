@@ -9,8 +9,8 @@ const router = express.Router();
 
 router.get('/:userId', authMiddleware,roleMiddleware("user"), getCart);
 router.post('/', authMiddleware,roleMiddleware("user"), addToCart);
-router.delete('/:userId/product/:productId', authMiddleware, roleMiddleware("user"), deleteItemFromCart);
-router.patch('/:userId/product/:productId/increase', authMiddleware, roleMiddleware("user"),increaseItemQuantity);
-router.patch('/:userId/product/:productId/decrease', authMiddleware, roleMiddleware("user"),decreaseItemQuantity);
+router.delete('/:userId/product/:id', authMiddleware, roleMiddleware("user"), deleteItemFromCart);
+router.patch('/:userId/product/:id/increase', authMiddleware, roleMiddleware("user"),increaseItemQuantity);
+router.patch('/:userId/product/:id/decrease', authMiddleware, roleMiddleware("user"),decreaseItemQuantity);
 
 module.exports = router;
