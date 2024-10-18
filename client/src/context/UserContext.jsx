@@ -55,7 +55,7 @@ export const UserProvider = ({ children }) => {
           },
         }); 
       console.log("cart items in front:",response.data.items);
-      setCart(response.data.items);
+      setCart(response.data);
       // await fetchLatestCartData();
       console.log("cart", cart);
     } catch (error) {
