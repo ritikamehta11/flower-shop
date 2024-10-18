@@ -60,19 +60,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = async (product) => {
+  const removeFromCart = async (id) => {
     if (!user) {
       console.error("User not set");
       return;
     }
 
     try {
-      console.log(`Attempting to remove product: ${product}`);
+      console.log(`Attempting to remove product: ${id}`);
 
       // Send the DELETE request to the backend
-      console.log("id of the product:",product._id);
+      console.log("id of the product:",id);
       const response = await axios.delete(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${product._id}`,
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
         console.log("Cart after server response:", response.data.items);
 
         // Update the cart with the new state after removal
-        const updatedCart = cart.items.filter(item => item.product._id !== product._id);
+        const updatedCart = cart.items.filter(item => item.product._id !== id);
         setCart({ ...cart, items: updatedCart });
 
         // Update the cart state

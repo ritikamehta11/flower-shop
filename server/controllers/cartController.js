@@ -6,7 +6,7 @@ const Cart = require('../models/cartModel');
 // Fetch user's cart
 const getCart= async (req, res) => {
   try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
+    const cart = await Cart.findOne({ userId: req.params.userId }).populate('items.product');
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
