@@ -47,25 +47,28 @@ const addToCart= async (req, res) => {
 
 
 const deleteItemFromCart = async (req, res) => {
-  const { userId, productId } = req.params;
+
 
   try {
-    // Find the cart by userId and remove the item with the matching productId
-    const cart = await Cart.updateOne(
-      { userId: userId }, // Find the cart by userId
-      { $pull: { items: { productId: productId } } } // Remove the item with the matching productId
-    );
+    const { userId, productId } = req.body;
 
-    // Check if the cart was updated (i.e., item was removed)
-    if (cart.nModified === 0) {
-      return res.status(404).json({ msg: 'No matching cart or product found' });
+    // Find the cart by userId and remove the item by productId
+    const cart = await Cart.findOneAndUpdate(
+      { userId },
+      { $pull: { items: { productId } } }, // Remove the item with the given productId
+      { new: true } // Return the updated cart
+    ).populate('items.productId'); // Ensure productId is populated
+
+    if (!cart) {
+      return res.status(404).json({ msg: 'Cart not found' });
     }
 
-    return res.status(200).json({ msg: 'Item removed from the cart successfully' });
+    return res.json(cart); // Send the updated cart back to the frontend
   } catch (error) {
-    console.error('Error removing item from cart:', error);
-    return res.status(500).json({ msg: 'Server error' });
+    console.error(error);
+    res.status(500).json({ msg: 'Server error' });
   }
+  
 };
 
 
