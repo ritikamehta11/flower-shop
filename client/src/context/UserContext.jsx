@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
     //else { console.log(user); }
-
+    console.log("product", product);
     try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
         { userId: user.id, product, quantity },
