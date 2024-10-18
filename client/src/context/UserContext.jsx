@@ -72,7 +72,7 @@ export const UserProvider = ({ children }) => {
       // Send the DELETE request to the backend
       console.log("id of the product:",productId._id);
       const response = await axios.delete(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`,
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
         console.log("Cart after server response:", response.data.items);
 
         // Update the cart with the new state after removal
-        const updatedCart = cart.items.filter(item => item.productId._id !== productId);
+        const updatedCart = cart.items.filter(item => item.productId._id !== productId._id);
         setCart({ ...cart, items: updatedCart });
 
         // Update the cart state
