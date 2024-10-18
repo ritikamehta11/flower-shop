@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
 
 
 
-  const addToCart = async (productId, quantity) => {
+  const addToCart = async (product, quantity) => {
     //console.log(user.id);
     if (!user) {
       console.error("User not set");
@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
 
     try {
       const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
-        { userId: user.id, productId, quantity },
+        { userId: user.id, product, quantity },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -60,19 +60,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = async (productId) => {
+  const removeFromCart = async (product) => {
     if (!user) {
       console.error("User not set");
       return;
     }
 
     try {
-      console.log(`Attempting to remove product: ${productId}`);
+      console.log(`Attempting to remove product: ${product}`);
 
       // Send the DELETE request to the backend
-      console.log("id of the product:",productId._id);
+      console.log("id of the product:",product._id);
       const response = await axios.delete(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId._id}`,
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${product._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
         console.log("Cart after server response:", response.data.items);
 
         // Update the cart with the new state after removal
-        const updatedCart = cart.items.filter(item => item.productId._id !== productId._id);
+        const updatedCart = cart.items.filter(item => item.product._id !== product._id);
         setCart({ ...cart, items: updatedCart });
 
         // Update the cart state
@@ -102,14 +102,14 @@ export const UserProvider = ({ children }) => {
 
 
 
-  const increaseQuantity = async (productId) => {
+  const increaseQuantity = async (product) => {
     if (!user) {
       console.error("User not set");
       return;
     }
 
     try {
-      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}/increase`, {}, {
+      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${product._id}/increase`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -122,14 +122,14 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const decreaseQuantity = async (productId) => {
+  const decreaseQuantity = async (product) => {
     if (!user) {
       console.error("User not set");
       return;
     }
 
     try {
-      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}/decrease`, {}, {
+      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${product._id}/decrease`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

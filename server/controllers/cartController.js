@@ -15,27 +15,27 @@ const getCart= async (req, res) => {
 
 // Add item to cart
 const addToCart= async (req, res) => {
-  const { userId, productId, quantity } = req.body;
+  const { userId, product, quantity } = req.body;
   
   try {
-    let cart = await Cart.findOne({ userId }).populate('items.productId');;
+    let cart = await Cart.findOne({ userId }).populate('items.product');;
     
     if (!cart) {
       cart = new Cart({ userId, items: [] });
     }
 
-    const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+    const existingItemIndex = cart.items.findIndex(item => item.product.productId.toString() === product._id);
     
     if (existingItemIndex > -1) {
       // If the item already exists, update the quantity
       cart.items[existingItemIndex].quantity += quantity;
     } else {
       // If the item does not exist, add it to the cart
-      cart.items.push({ productId, quantity });
+      cart.items.push({ product, quantity });
     }
 
     await cart.save();
-    cart = await cart.populate('items.productId');
+    cart = await cart.populate('items.product');
     //console.log(cart);
     res.json(cart);
   } catch (error) {
@@ -50,14 +50,14 @@ const deleteItemFromCart = async (req, res) => {
 
 
   try {
-    const { userId, productId } = req.body;
+    const { userId, product } = req.body;
 
     // Find the cart by userId and remove the item by productId
     const cart = await Cart.findOneAndUpdate(
       { userId },
-      { $pull: { items: { 'productId._id': mongoose.Types.ObjectId(productId) } } }, // Remove the item with the given productId
+      { $pull: { items: { 'productId': mongoose.Types.ObjectId(product) } } }, // Remove the item with the given productId
       { new: true } // Return the updated cart
-    ).populate('items.productId'); // Ensure productId is populated
+    ).populate('items.product'); // Ensure productId is populated
 
     if (!cart) {
       return res.status(404).json({ msg: 'Cart not found' });
