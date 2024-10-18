@@ -24,7 +24,7 @@ const addToCart= async (req, res) => {
       cart = new Cart({ userId, items: [] });
     }
 
-    const existingItemIndex = cart.items.findIndex(item => item.product.productId.toString() === product._id);
+    const existingItemIndex = cart.items.findIndex(item => item.product._id === product._id);
     
     if (existingItemIndex > -1) {
       // If the item already exists, update the quantity
@@ -55,7 +55,7 @@ const deleteItemFromCart = async (req, res) => {
     // Find the cart by userId and remove the item by productId
     const cart = await Cart.findOneAndUpdate(
       { userId },
-      { $pull: { items: { 'productId': mongoose.Types.ObjectId(product) } } }, // Remove the item with the given productId
+      { $pull: { items: { 'product._id': mongoose.Types.ObjectId(product) } } }, // Remove the item with the given productId
       { new: true } // Return the updated cart
     ).populate('items.product'); // Ensure productId is populated
 
