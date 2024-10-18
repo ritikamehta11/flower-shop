@@ -9,8 +9,8 @@ const Cart = () => {
   //const image = response.data.imageUrl;
 
   const getTotalPrice = () => {
-
-    const cartTotal = cart.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
+    console.log("cart in gettotalpricefunction: ", cart);
+    const cartTotal = cart.items.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
     console.log(cartTotal);
     return cartTotal;
 
