@@ -34,25 +34,25 @@ const Cart = () => {
                   {console.log("cart in cart.jsx",cart)}
                   {cart.map((item, index) => (
                     <li
-                      key={`${item.productId._id}-${index}`}
+                      key={`${item.product._id}-${index}`}
                       className="flex items-center justify-between border-b py-4 border-gray-200"
                     >
                       <div className="flex items-center">
                         <img
-                          src={item.productId.image}  // Ensure you are getting the correct image URL
-                          alt={item.productId.name}
+                          src={item.product.image}  // Ensure you are getting the correct image URL
+                          alt={item.product.name}
                           className="w-20 h-20 object-cover rounded-lg"
                         />
                         <div className="ml-4">
-                          <p className="text-lg font-semibold text-primary">{item.productId.name}</p>
+                          <p className="text-lg font-semibold text-primary">{item.product.name}</p>
                           <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
-                          <p className="text-sm text-gray-500">Price: ${item.productId.price}</p>
+                          <p className="text-sm text-gray-500">Price: ${item.product.price}</p>
                         </div>
                       </div>
                       <div className="flex space-x-2">
-                        <button onClick={() => increaseQuantity(item.productId)} className="sec-btn-increase">+</button>
-                        <button onClick={() => decreaseQuantity(item.productId)} className="sec-btn-decrease">-</button>
-                        <button onClick={() => removeFromCart(item.productId)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
+                        <button onClick={() => increaseQuantity(item.product)} className="sec-btn-increase">+</button>
+                        <button onClick={() => decreaseQuantity(item.product)} className="sec-btn-decrease">-</button>
+                        <button onClick={() => removeFromCart(item.product)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
                           Remove
                         </button>
                       </div>
