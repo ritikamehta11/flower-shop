@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log("reponse data at react:", reponse.data);
+          console.log("reponse data at react:", response.data);
           console.log("response data ietms at react:", response.data.items);
           setCart(response.data);
          

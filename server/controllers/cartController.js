@@ -25,7 +25,7 @@ const addToCart= async (req, res) => {
     if (!cart) {
       cart = new Cart({
         userId,
-        items: [{ product: pid, quantity}],
+        items: [{ product: pid }, quantity],
       });
     }
 
@@ -36,7 +36,7 @@ const addToCart= async (req, res) => {
       cart.items[existingItemIndex].quantity += quantity;
     } else {
       // If the item does not exist, add it to the cart
-      cart.items.push({ product: pid, quantity });
+      cart.items.push({ product: pid }, quantity );
     }
 
     await cart.save();
