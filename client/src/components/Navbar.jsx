@@ -10,7 +10,7 @@ export default function Navbar() {
 
     localStorage.removeItem("token");
     setUser(null);
-       navigate('/login');
+    navigate('/login');
   }
 
   if (user === null) {

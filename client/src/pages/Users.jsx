@@ -67,13 +67,13 @@ export const Users = () => {
                 <td className="border px-4 py-2">{user.phone}</td>
                 <td className="border px-4 py-2">
                   <button
-                    className="bg-blue-500 text-white px-2 py-1 mr-2 rounded hover:bg-blue-700"
+                    className="sec-btn-update"
                     
                   >
                     All Orders
                   </button>
                   <button
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
+                    className="sec-btn-delete"
                     onClick={() => handleDelete(user._id)}
                   >
                     Delete
