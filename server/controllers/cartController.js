@@ -56,7 +56,7 @@ const addToCart= async (req, res) => {
 
  const deleteItemFromCart = async (req, res) => {
   try {
-    const { userId, productId } = req.params; // Get userId and productId from request parameters
+    const { userId, pid } = req.params; // Get userId and productId from request parameters
 
     // Step 1: Find the cart for the specific user
     const cart = await Cart.findOne({ userId });
@@ -66,8 +66,8 @@ const addToCart= async (req, res) => {
     }
 
     // Step 2: Find the item in the cart by productId
-    const itemToRemove = cart.items.find(item => item.product._id.toString() === productId);
-
+    const itemToRemove = cart.items.find(item => item.product._id.toString() === pid);
+    console.log(itemToRemove._id);
     if (!itemToRemove) {
       return res.status(404).json({ msg: 'Item not found in cart' }); // Handle case where item is not found
     }
