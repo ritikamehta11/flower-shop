@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Cart = require('../models/cartModel');
-
-
+const { default: mongoose } = require('mongoose');
+mongoose
 // Fetch user's cart
 const getCart= async (req, res) => {
   try {
@@ -51,30 +51,42 @@ const addToCart= async (req, res) => {
 // Remove item from cart
 
 
-const deleteItemFromCart = async (req, res) => {
 
 
+
+ const deleteItemFromCart = async (req, res) => {
   try {
-    const { userId, product } = req.body;
+    const { userId, productId } = req.params; // Get userId and productId from request parameters
 
-    // Find the cart by userId and remove the item by productId
-    const cart = await Cart.findOneAndUpdate(
-      { userId },
-      { $pull: { items: { 'product._id': mongoose.Types.ObjectId(product) } } }, // Remove the item with the given productId
-      { new: true } // Return the updated cart
-    ).populate('items.product'); // Ensure productId is populated
+    // Step 1: Find the cart for the specific user
+    const cart = await Cart.findOne({ userId });
 
     if (!cart) {
-      return res.status(404).json({ msg: 'Cart not found' });
+      return res.status(404).json({ msg: 'Cart not found' }); // Handle case where cart is not found
     }
 
-    return res.json(cart); // Send the updated cart back to the frontend
+    // Step 2: Find the item in the cart by productId
+    const itemToRemove = cart.items.find(item => item.product._id.toString() === productId);
+
+    if (!itemToRemove) {
+      return res.status(404).json({ msg: 'Item not found in cart' }); // Handle case where item is not found
+    }
+
+    // Step 3: Remove the item by item._id
+    cart.items = cart.items.filter(item => item._id.toString() !== itemToRemove._id.toString()); // Remove the item
+
+    // Save the updated cart
+    await cart.save();
+
+    // Step 4: Return the updated cart
+    return res.json(cart); // Send the updated cart back to the client
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: 'Server error' });
+    console.error(error); // Log the error for debugging
+    res.status(500).json({ msg: 'Server error' }); // Handle server error
   }
-  
 };
+
+
 
 
 
