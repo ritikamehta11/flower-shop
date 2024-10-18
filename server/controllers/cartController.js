@@ -55,7 +55,7 @@ const deleteItemFromCart = async (req, res) => {
     // Find the cart by userId and remove the item by productId
     const cart = await Cart.findOneAndUpdate(
       { userId },
-      { $pull: { items: { productId } } }, // Remove the item with the given productId
+      { $pull: { items: { 'productId._id': mongoose.Types.ObjectId(productId) } } }, // Remove the item with the given productId
       { new: true } // Return the updated cart
     ).populate('items.productId'); // Ensure productId is populated
 
