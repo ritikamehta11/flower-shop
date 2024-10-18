@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
           });
           console.log("reponse data at react:", reponse.data);
           console.log("response data ietms at react:", response.data.items);
-          setCart(response.data.items);
+          setCart(response.data);
          
         } catch (error) {
           console.error("Error fetching cart", error);
