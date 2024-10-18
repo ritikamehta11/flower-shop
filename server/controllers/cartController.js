@@ -18,10 +18,10 @@ const addToCart= async (req, res) => {
   const { userId, product, quantity } = req.body;
   
   try {
-    let cart = await Cart.findOne({ userId }).populate('items.product');;
+    let cart = await Cart.findOne({ userId }).populate('items.product');
     
     if (!cart) {
-      cart = new Cart({ userId, items: [] });
+      cart = new Cart({ userId, items: [] }).populate('items.product');
     }
 
     const existingItemIndex = cart.items.findIndex(item => item.product._id === product._id);
