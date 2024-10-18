@@ -32,7 +32,7 @@ const Cart = () => {
               <div className="col-span-2">
                 <ul className="space-y-4">
                   {console.log("cart in cart.jsx",cart)}
-                  {cart.map((item, index) => (
+                  {cart.items.map((item, index) => (
                     <li
                       key={`${item.product._id}-${index}`}
                       className="flex items-center justify-between border-b py-4 border-gray-200"

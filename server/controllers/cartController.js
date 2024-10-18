@@ -24,7 +24,7 @@ const addToCart= async (req, res) => {
       cart = new Cart({ userId, items: [] });
     }
 
-    const existingItemIndex = cart.items.findIndex(item => item.product._id === product._id);
+    const existingItemIndex = cart.items.findIndex(item => item.product.toString === product._id);
     
     if (existingItemIndex > -1) {
       // If the item already exists, update the quantity
