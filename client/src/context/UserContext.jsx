@@ -72,7 +72,7 @@ export const UserProvider = ({ children }) => {
       // Send the DELETE request to the backend
       console.log("id of the product:",productId._id);
       const response = await axios.delete(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${productId}`,
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
