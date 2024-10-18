@@ -54,7 +54,7 @@ export const UserProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         }); 
-      console.log(response.data.items);
+      console.log("cart items in front:",response.data.items);
       setCart(response.data.items);
       // await fetchLatestCartData();
       console.log("cart", cart);
