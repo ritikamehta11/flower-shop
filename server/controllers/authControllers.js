@@ -104,7 +104,7 @@ const deleteUsers = async (req, res) => {
   const { id } = req.params;
  try {
     // Attempt to find and delete the user
-    const user = await User.findByIdAndDelete(userId);
+    const user = await User.findByIdAndDelete(id);
 
     // Check if the user was found and deleted
     if (!user) {
