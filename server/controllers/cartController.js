@@ -29,7 +29,7 @@ const addToCart= async (req, res) => {
       });
     }
 
-    const existingItemIndex = cart.items.findIndex(item => item.product.toString === pid);
+    const existingItemIndex = cart.items.findIndex(item => item.product.toString() === pid);
     
     if (existingItemIndex > -1) {
       // If the item already exists, update the quantity
@@ -40,7 +40,7 @@ const addToCart= async (req, res) => {
     }
 
     await cart.save();
-    cart = await cart.populate('items.product');
+   cart = await Cart.findOne({ userId }).populate('items.product');
     //console.log(cart);
     res.json(cart);
   } catch (error) {
