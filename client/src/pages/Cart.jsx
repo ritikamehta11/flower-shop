@@ -45,13 +45,14 @@ const Cart = () => {
                         />
                         <div className="ml-4">
                           <p className="text-lg font-semibold text-primary">{item.product.name}</p>
-                          <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                          
                           <p className="text-sm text-gray-500">Price: ${item.product.price}</p>
                         </div>
                       </div> 
                       <div className="flex space-x-2">
-                        <button onClick={() => increaseQuantity(item.product)} className="sec-btn-increase">+</button>
-                        <button onClick={() => decreaseQuantity(item.product)} className="sec-btn-decrease">-</button>
+                        <button onClick={() => increaseQuantity(item.product)} className="sec-btn-increase px-2">+</button>
+                        <p className="text-sm text-gray-500"> {item.quantity}</p>
+                        <button onClick={() => decreaseQuantity(item.product)} className="sec-btn-decrease px-2">-</button>
                         <button onClick={() => removeFromCart(item.product._id)} className="sec-btn-delete px-4 py-1 rounded-md text-sm col transition-colors">
                           Remove
                         </button>

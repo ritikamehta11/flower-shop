@@ -97,14 +97,14 @@ export const UserProvider = ({ children }) => {
 
 
 
-  const increaseQuantity = async (product) => {
+  const increaseQuantity = async (pid) => {
     if (!user) {
       console.error("User not set");
       return;
     }
 
     try {
-      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${product._id}/increase`, {}, {
+      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${pid}/increase`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -94,15 +94,15 @@ const addToCart= async (req, res) => {
 // increasing or decreasing quantity
 // Increase item quantity in cart
 const increaseItemQuantity = async (req, res) => {
-  const { userId, product } = req.params;
+  const { userId, pid } = req.params;
 
   try {
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    const existingItemIndex = cart.items.findIndex(item => item.product.toString() === product);
-    if (existingItemIndex > -1) {
-      cart.items[existingItemIndex].quantity += 1; // Increase quantity by 1
+    const existingItem = cart.items.findIndex(item => item.product._id.toString() === pid);
+    if (existingItem) {
+      cart.items.existingItem.quantity += 1; // Increase quantity by 1
       await cart.save();
       res.json(cart);
     } else {
