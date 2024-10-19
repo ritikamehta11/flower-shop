@@ -100,7 +100,7 @@ const increaseItemQuantity = async (req, res) => {
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    const existingItem = cart.items.findIndex(item => item.product._id.toString() === pid);
+    const existingItem = cart.items.find(item => item.product._id.toString() === pid);
     if (existingItem) {
       cart.items.existingItem.quantity += 1; // Increase quantity by 1
       await cart.save();
