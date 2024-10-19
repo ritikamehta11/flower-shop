@@ -11,6 +11,6 @@ router.get('/:userId', authMiddleware,roleMiddleware("user"), getCart);
 router.post('/', authMiddleware,roleMiddleware("user"), addToCart);
 router.delete('/:userId/product/:pid', authMiddleware, roleMiddleware("user"), deleteItemFromCart);
 router.patch('/:userId/product/:pid/increase', authMiddleware, roleMiddleware("user"),increaseItemQuantity);
-router.patch('/:userId/product/:id/decrease', authMiddleware, roleMiddleware("user"),decreaseItemQuantity);
+router.patch('/:userId/product/:pid/decrease', authMiddleware, roleMiddleware("user"),decreaseItemQuantity);
 
 module.exports = router;

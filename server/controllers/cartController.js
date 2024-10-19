@@ -115,20 +115,15 @@ const increaseItemQuantity = async (req, res) => {
 
 // Decrease item quantity in cart
 const decreaseItemQuantity = async (req, res) => {
-  const { userId, product } = req.params;
+ const { userId, pid } = req.params;
 
   try {
     const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    const existingItemIndex = cart.items.findIndex(item => item.product.toString() === product);
-    if (existingItemIndex > -1) {
-      if (cart.items[existingItemIndex].quantity > 1) {
-        cart.items[existingItemIndex].quantity -= 1; // Decrease quantity by 1
-      } else {
-        // If quantity is 1, you might want to remove it from the cart instead
-        cart.items.splice(existingItemIndex, 1);
-      }
+    const existingItem = cart.items.find(item => item.product._id.toString() === pid);
+    if (existingItem) {
+      existingItem.quantity -= 1; // Increase quantity by 1
       await cart.save();
       res.json(cart);
     } else {

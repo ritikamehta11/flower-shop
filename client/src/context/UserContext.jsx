@@ -125,16 +125,17 @@ export const UserProvider = ({ children }) => {
     }
 
     try {
-      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${product._id}/decrease`, {}, {
+      console.log("pid in dec quantity function: ", pid);
+      const response = await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${pid}/decrease`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       // Optionally refetch the cart or adjust the cart state accordingly
-      setCart(response.data.items); // Re-fetch the cart to get updated quantities
+      setCart(response.data);
       // await fetchLatestCartData();
     } catch (error) {
-      console.error('Error decreasing quantity', error);
+      console.error('Error decresing quantity', error);
     }
   };
 
