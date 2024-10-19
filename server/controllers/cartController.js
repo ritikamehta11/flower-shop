@@ -134,7 +134,7 @@ const decreaseItemQuantity = async (req, res) => {
   }
 };
 
-// Add routes for increase and decrease quantity
+
 
 
 module.exports = {getCart,addToCart,deleteItemFromCart, increaseItemQuantity, decreaseItemQuantity};
