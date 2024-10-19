@@ -13,8 +13,9 @@ import { UserContext } from './context/UserContext';
 import Cart from './pages/Cart';
 import { Users } from './pages/Users';
 import ProductDetails from './pages/ProductDetails';
-
 import { UserProfile } from './pages/UserProfile';
+
+UserProfile
 function App() {
  // const { setUser } = useContext(UserContext);
 
