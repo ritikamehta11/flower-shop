@@ -111,7 +111,7 @@ export const UserProvider = ({ children }) => {
         },
       });
       // Optionally refetch the cart or adjust the cart state accordingly
-      setCart({ ...cart, items: updatedCart });
+      setCart(response.data);
       // await fetchLatestCartData();
     } catch (error) {
       console.error('Error increasing quantity', error);
