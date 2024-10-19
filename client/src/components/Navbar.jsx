@@ -22,7 +22,7 @@ export default function Navbar() {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/contact'>Contact Us</Link></li>
             <li><Link to='/about'>About</Link></li>
-            <li><Link to='/Products'>All Products</Link></li>
+            <li><Link to='/'>All Products</Link></li>
 
           </ul>
           <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
@@ -42,7 +42,8 @@ export default function Navbar() {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/contact'>Contact Us</Link></li>
             <li><Link to='/about'>About</Link></li>
-            <li><Link to='/Products'>All Products</Link></li>
+            <li><Link to='/main'>All Products</Link></li>
+            <li><Link to='/user/profile'>Profile</Link></li>
 
           </ul>
           <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
