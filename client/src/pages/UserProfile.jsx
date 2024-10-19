@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import { UserContext } from '@/context/UserContext'
 import React, { useContext } from 'react'
 
