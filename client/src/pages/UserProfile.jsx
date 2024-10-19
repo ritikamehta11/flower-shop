@@ -3,10 +3,11 @@ import { UserContext } from '@/context/UserContext'
 import React, { useContext } from 'react'
 
 export const UserProfile = () => {
+ 
+  const { user } = useContext(UserContext);
   if (!user) {
     navigate('/login'); return null;
   }
-  const { user } = useContext(UserContext);
   return (
     <>
       <section className='h-screen flex flex-col'>

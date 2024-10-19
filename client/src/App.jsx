@@ -14,6 +14,7 @@ import Cart from './pages/Cart';
 import { Users } from './pages/Users';
 import ProductDetails from './pages/ProductDetails';
 import { UserProfile } from './pages/UserProfile';
+import { Logout } from './pages/Logout';
 
 
 UserProfile
@@ -45,7 +46,8 @@ function App() {
       <Route path='/cart' element={<Cart />} />
       <Route path='/admin/users' element={<Users />} />
       <Route path="/product/:productId" element={<ProductDetails />} />
-      <Route path='/user/profile' element={<UserProfile/>} />
+      <Route path='/user/profile' element={<UserProfile />} />
+      <Route path='/logout' element={<Logout/>}/>
     </Routes>
 
   )

@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
     if (user) {
       const fetchCart = async () => {
         try {
+          
           const response = await axios.get(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
