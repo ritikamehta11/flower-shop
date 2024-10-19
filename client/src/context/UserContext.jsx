@@ -105,7 +105,7 @@ export const UserProvider = ({ children }) => {
 
     try {
       console.log("pid in increasing quantity function: ",pid);
-      await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${pid}/increase`, {}, {
+      const response = await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${pid}/increase`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
