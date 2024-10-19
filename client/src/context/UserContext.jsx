@@ -118,7 +118,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const decreaseQuantity = async (product) => {
+  const decreaseQuantity = async (pid) => {
     if (!user) {
       console.error("User not set");
       return;
