@@ -111,7 +111,18 @@ export const UserProvider = ({ children }) => {
         },
       });
       // Optionally refetch the cart or adjust the cart state accordingly
-      setCart(response.data);
+      setCart((prevCart) => {
+        // Find the item in the cart
+        const updatedItems = prevCart.items.map((item) => {
+          if (item.product._id === pid) {
+            return { ...item, quantity: item.quantity + 1 }; // Increase the quantity
+          }
+          return item;
+        });
+
+        // Return the updated cart with new quantities
+        return { ...prevCart, items: updatedItems };
+      });
       // await fetchLatestCartData();
     } catch (error) {
       console.error('Error increasing quantity', error);
@@ -132,7 +143,18 @@ export const UserProvider = ({ children }) => {
         },
       });
       // Optionally refetch the cart or adjust the cart state accordingly
-      setCart(response.data);
+      setCart((prevCart) => {
+        // Find the item in the cart
+        const updatedItems = prevCart.items.map((item) => {
+          if (item.product._id === pid) {
+            return { ...item, quantity: item.quantity + 1 }; // Increase the quantity
+          }
+          return item;
+        });
+
+        // Return the updated cart with new quantities
+        return { ...prevCart, items: updatedItems };
+      });
       // await fetchLatestCartData();
     } catch (error) {
       console.error('Error decresing quantity', error);
