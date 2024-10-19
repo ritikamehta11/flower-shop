@@ -102,7 +102,7 @@ const increaseItemQuantity = async (req, res) => {
 
     const existingItem = cart.items.find(item => item.product._id.toString() === pid);
     if (existingItem) {
-      cart.items.existingItem.quantity += 1; // Increase quantity by 1
+      existingItem.quantity += 1; // Increase quantity by 1
       await cart.save();
       res.json(cart);
     } else {
