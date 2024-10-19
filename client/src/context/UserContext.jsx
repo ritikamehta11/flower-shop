@@ -147,7 +147,7 @@ export const UserProvider = ({ children }) => {
         // Find the item in the cart
         const updatedItems = prevCart.items.map((item) => {
           if (item.product._id === pid) {
-            return { ...item, quantity: item.quantity + 1 }; // Increase the quantity
+            return { ...item, quantity: item.quantity - 1 }; // Increase the quantity
           }
           return item;
         });
