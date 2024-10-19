@@ -43,11 +43,12 @@ export default function Navbar() {
             <li><Link to='/contact'>Contact Us</Link></li>
             <li><Link to='/about'>About</Link></li>
             <li><Link to='/main'>All Products</Link></li>
-            <li><Link to='/user/profile'>Profile</Link></li>
+       
 
           </ul>
           <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
             <li><Link to='/cart'>Cart</Link></li>
+            <li><Link to='/user/profile'>Profile</Link></li>
             <li><Link onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav></>
