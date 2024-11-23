@@ -7,7 +7,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   console.log("on site opening", user, "         user role:", user?.role);
   const handleLogout = () => {
-
+    localStorage.removeItem("token");
+    setUser(null);
     navigate('/logout');
   }
 

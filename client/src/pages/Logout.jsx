@@ -6,10 +6,10 @@ export const Logout = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
-     localStorage.removeItem("token");
-  setUser(null);
-  navigate('/login');
-  })
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate('/login');
+  });
  
   return;
 }
