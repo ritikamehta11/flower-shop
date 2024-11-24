@@ -9,7 +9,7 @@ export const ProductsAdmin = () => {
   useEffect(() => {
 
     const fetchProducts = async () => {
-      const response = await axios.get('https://flower-shop-5nkta0tai-ritika-mehtas-projects.vercel.app/api/shop');
+      const response = await axios.get('https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app/api/shop');
       setProducts(response.data);
     };
     fetchProducts();

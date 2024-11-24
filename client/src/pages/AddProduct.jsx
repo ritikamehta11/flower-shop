@@ -29,7 +29,7 @@ console.log(Array.from(formData.entries()));
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post("https://flower-shop-5nkta0tai-ritika-mehtas-projects.vercel.app/api/shop/create", formData, {
+      const response = await axios.post("https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app/api/shop/create", formData, {
         headers: {
           'Authorization': `Bearer ${token}`
         },

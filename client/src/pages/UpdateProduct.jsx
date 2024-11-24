@@ -18,7 +18,7 @@ export const UpdateProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`https://flower-shop-5nkta0tai-ritika-mehtas-projects.vercel.app//api/shop/${id}`);
+        const response = await axios.get(`https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app//api/shop/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.log(error);
@@ -52,7 +52,7 @@ export const UpdateProduct = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`https://flower-shop-5nkta0tai-ritika-mehtas-projects.vercel.app/api/shop/update/${id}`, formData, {
+      const response = await axios.put(`https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app/api/shop/update/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data', // Specify multipart/form-data for file uploads

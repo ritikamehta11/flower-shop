@@ -14,7 +14,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`https://flower-shop-5nkta0tai-ritika-mehtas-projects.vercel.app/api/shop/${productId}`);
+        const response = await axios.get(`https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app/api/shop/${productId}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product details:", error);
