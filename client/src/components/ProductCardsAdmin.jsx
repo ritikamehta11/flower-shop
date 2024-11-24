@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export const ProductCardAdmin = ({ product, onDelete }) => {
   //const image = response.data.image;
-
+  const navigate = useNavigate();
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -29,7 +29,7 @@ export const ProductCardAdmin = ({ product, onDelete }) => {
       <p><span className='labels'>Price: </span> {product.price}</p>
       <p><span className='labels'>Description: </span> {product.description}</p>
         <p><span className='labels '>Category:</span>  {product.category}</p>
-        <div className=''><button className='sec-btn-update px-8 py-0.5 text-center mx-1 font-thin  text-xs'><Link to={`/admin/updateproductbyid/${product._id}`}>Update </Link></button>
+        <div className=''><button className='sec-btn-update px-8 py-0.5 text-center mx-1 font-thin  text-xs' onClick={() => navigate(`/admin/updateproductbyid/${product._id}`)}>Update </button>
           <button className='sec-btn-delete px-8 py-0.5 text-center font-thin mx-1 text-xs' onClick={handleDelete}>Delete</button></div>
       </div>
     </section>

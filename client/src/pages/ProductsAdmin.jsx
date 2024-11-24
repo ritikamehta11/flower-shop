@@ -23,7 +23,7 @@ export const ProductsAdmin = () => {
   return (
     <>
       <Header />
-      <div className='hero  w-3/4 mx-auto my-10 flex flex-col gap-4  p-8'>
+      <div className='hero  w-4/5 mx-auto my-10 flex flex-col gap-4  p-8'>
         <div>
           <h1 className='logo'>All Products</h1>
           <p><Link to='/admin/createproduct'>Add</Link></p>
