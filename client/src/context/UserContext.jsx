@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
       const fetchCart = async () => {
         try {
           const response = await axios.get(
-            `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}`,
+            `https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/cart/${user.id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       const response = await axios.post(
-        "https://flower-shop-backend-81tw.onrender.com/api/cart",
+        "https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/cart",
         { userId: user._id, pid, quantity },
         {
           headers: {
@@ -75,7 +75,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.delete(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${id}`,
+        `https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/cart/${user._id}/product/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -98,7 +98,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.patch(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${pid}/increase`,
+        `https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/cart/${user._id}/product/${pid}/increase`,
         {},
         {
           headers: {
@@ -124,7 +124,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.patch(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${pid}/decrease`,
+        `https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/cart/${user._id}/product/${pid}/decrease`,
         {},
         {
           headers: {

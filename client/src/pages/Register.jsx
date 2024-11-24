@@ -50,7 +50,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://flower-shop-backend-81tw.onrender.com/api/auth/register",
+        "https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/auth/register",
         { name, email, phone, password }
       );
 

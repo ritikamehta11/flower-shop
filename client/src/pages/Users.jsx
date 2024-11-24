@@ -10,7 +10,7 @@ export const Users = () => {
       
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://flower-shop-backend-81tw.onrender.com/api/auth/users', {
+        const response = await axios.get('https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app//api/auth/users', {
           headers: {
             Authorization: `Bearer ${token}` // Pass token if authentication is required
           }
@@ -39,7 +39,7 @@ export const Users = () => {
       const newUsers = Users.filter((user) => user._id !== id);
     setUsers(newUsers);
 
-      await axios.delete(`https://flower-shop-backend-81tw.onrender.com/api/auth/delete/${id}`);
+      await axios.delete(`https://flower-shop-kny9um7ep-ritika-mehtas-projects.vercel.app/api/auth/delete/${id}`);
       setMessage("deleted successfully");
     } catch (error) {
       const errorMessage = error.response?.data?.message;
