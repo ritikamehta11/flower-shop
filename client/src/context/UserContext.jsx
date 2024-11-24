@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
 
   const handleError = (error) => {
     console.error("API Error:", error);
-    alert("Something went wrong. Please try again.");
+   
   };
 
   useEffect(() => {
