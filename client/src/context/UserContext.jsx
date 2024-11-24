@@ -1,169 +1,150 @@
-
 import { useState, createContext, useContext, useEffect } from "react";
 import axios from "axios";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const savedUser = localStorage.getItem('user');
-  const token = localStorage.getItem('token');
+  const savedUser = localStorage.getItem("user");
+  const savedCart = localStorage.getItem("cart");
+  const token = localStorage.getItem("token");
 
-  // Initialize user state from localStorage if available
+  const isTokenValid = (token) => token && token.split(".").length === 3;
+
   const [user, setUser] = useState(savedUser ? JSON.parse(savedUser) : null);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(savedCart ? JSON.parse(savedCart) : { items: [] });
 
-  // Fetch the cart when the user is set or changes
+  const handleError = (error) => {
+    console.error("API Error:", error);
+    alert("Something went wrong. Please try again.");
+  };
+
   useEffect(() => {
-    //console.log(user._id);
-    if (user) {
+    if (user && isTokenValid(token)) {
       const fetchCart = async () => {
         try {
-          
-          const response = await axios.get(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          console.log("reponse data at react:", response.data);
-          console.log("response data ietms at react:", response.data.items);
+          const response = await axios.get(
+            `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           setCart(response.data);
-         
         } catch (error) {
-          console.error("Error fetching cart", error);
+          handleError(error);
         }
       };
       fetchCart();
     }
   }, [user, token]);
 
-
-
+  useEffect(() => {
+    if (cart?.items) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const addToCart = async (pid, quantity) => {
-    //console.log(user.id);
-    if (!user) {
-      console.error("User not set");
+    if (!user || !isTokenValid(token)) {
+      console.error("User not set or token invalid");
       return;
     }
-    //else { console.log(user); }
-    console.log("id of the product while adding to cart:", pid);
     try {
-      const response = await axios.post('https://flower-shop-backend-81tw.onrender.com/api/cart',
-        { userId: user.id, pid, quantity },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }); 
-      console.log("cart items in front:",response.data.items);
-      setCart(response.data);
-      // await fetchLatestCartData();
-      console.log("cart", cart);
-    } catch (error) {
-      console.error('Error adding to cart', error);
-    }
-  };
-
-  const removeFromCart = async (id) => {
-    if (!user) {
-      console.error("User not set");
-      return;
-    }
-
-    try {
-      console.log(`Attempting to remove product with id: ${id}`);
-
-      // Send the DELETE request to the backend
-      // Update the cart with the new state after removal
-   
-      
-      const response = await axios.delete(
-        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${id}`,
+      const response = await axios.post(
+        "https://flower-shop-backend-81tw.onrender.com/api/cart",
+        { userId: user._id, pid, quantity },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-   const updatedCart = cart.items.filter(item => item.product._id !== id);
-      setCart({ ...cart, items: updatedCart });
-
-     
-      // }
+      setCart(response.data);
     } catch (error) {
-      console.error("Error removing from cart", error);
+      handleError(error);
     }
   };
 
-
-
-
-  const increaseQuantity = async (pid) => {
-    if (!user) {
-      console.error("User not set");
+  const removeFromCart = async (id) => {
+    if (!user || !isTokenValid(token)) {
+      console.error("User not set or token invalid");
       return;
     }
-
     try {
-      console.log("pid in increasing quantity function: ",pid);
-      const response = await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${pid}/increase`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // Optionally refetch the cart or adjust the cart state accordingly
-      setCart((prevCart) => {
-        // Find the item in the cart
-        const updatedItems = prevCart.items.map((item) => {
-          if (item.product._id === pid) {
-            return { ...item, quantity: item.quantity + 1 }; // Increase the quantity
-          }
-          return item;
-        });
-
-        // Return the updated cart with new quantities
-        return { ...prevCart, items: updatedItems };
-      });
-      // await fetchLatestCartData();
+      await axios.delete(
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCart((prevCart) => ({
+        ...prevCart,
+        items: prevCart.items.filter((item) => item.product._id !== id),
+      }));
     } catch (error) {
-      console.error('Error increasing quantity', error);
+      handleError(error);
+    }
+  };
+
+  const increaseQuantity = async (pid) => {
+    if (!user || !isTokenValid(token)) {
+      console.error("User not set or token invalid");
+      return;
+    }
+    try {
+      await axios.patch(
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${pid}/increase`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCart((prevCart) => ({
+        ...prevCart,
+        items: prevCart.items.map((item) =>
+          item.product._id === pid ? { ...item, quantity: item.quantity + 1 } : item
+        ),
+      }));
+    } catch (error) {
+      handleError(error);
     }
   };
 
   const decreaseQuantity = async (pid) => {
-    if (!user) {
-      console.error("User not set");
+    if (!user || !isTokenValid(token)) {
+      console.error("User not set or token invalid");
       return;
     }
-
     try {
-      console.log("pid in dec quantity function: ", pid);
-      const response = await axios.patch(`https://flower-shop-backend-81tw.onrender.com/api/cart/${user.id}/product/${pid}/decrease`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // Optionally refetch the cart or adjust the cart state accordingly
-      setCart((prevCart) => {
-        // Find the item in the cart
-        const updatedItems = prevCart.items.map((item) => {
-          if (item.product._id === pid) {
-            return { ...item, quantity: item.quantity - 1 }; // Increase the quantity
-          }
-          return item;
-        });
-
-        // Return the updated cart with new quantities
-        return { ...prevCart, items: updatedItems };
-      });
-      // await fetchLatestCartData();
+      await axios.patch(
+        `https://flower-shop-backend-81tw.onrender.com/api/cart/${user._id}/product/${pid}/decrease`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCart((prevCart) => ({
+        ...prevCart,
+        items: prevCart.items.map((item) =>
+          item.product._id === pid ? { ...item, quantity: item.quantity - 1 } : item
+        ),
+      }));
     } catch (error) {
-      console.error('Error decresing quantity', error);
+      handleError(error);
     }
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}>
+    <UserContext.Provider
+      value={{ user, setUser, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
+    >
       {children}
     </UserContext.Provider>
   );
