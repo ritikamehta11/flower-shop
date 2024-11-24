@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext();
 
@@ -7,7 +8,7 @@ export const UserProvider = ({ children }) => {
   const savedUser = localStorage.getItem("user");
   const savedCart = localStorage.getItem("cart");
   const token = localStorage.getItem("token");
-
+  const navigate = useNavigate();
   const isTokenValid = (token) => token && token.split(".").length === 3;
 
   const [user, setUser] = useState(savedUser ? JSON.parse(savedUser) : null);
@@ -47,6 +48,7 @@ export const UserProvider = ({ children }) => {
 
   const addToCart = async (pid, quantity) => {
     if (!user || !isTokenValid(token)) {
+      navigate('/login');
       console.error("User not set or token invalid");
       return;
     }

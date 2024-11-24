@@ -49,7 +49,7 @@ export default function Navbar() {
           <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
             <li><Link to='/cart'>Cart</Link></li>
             <li><Link to='/user/profile'>Profile</Link></li>
-            <li><Link onClick={handleLogout}>Logout</Link></li>
+            <li onClick={handleLogout}>Logout</li>
           </ul>
         </nav></>
     )
