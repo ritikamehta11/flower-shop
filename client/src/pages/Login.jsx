@@ -32,7 +32,7 @@ const Login = () => {
       if (!validateUser()) {
         return;
       }
-      const response = await axios.post("https://flower-shop-1qtms7z64-ritika-mehtas-projects.vercel.app/api/auth/login", {
+      const response = await axios.post("https://flower-shop-ochre.vercel.app/api/auth/login", {
         email,
         password,
       });

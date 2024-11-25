@@ -18,7 +18,7 @@ export const Mainpage = () => {
      try {
         const token = localStorage.getItem('token');
       //console.log("before response");
-        const response = await axios.get('https://flower-shop-1qtms7z64-ritika-mehtas-projects.vercel.app/api/shop'
+        const response = await axios.get('https://flower-shop-ochre.vercel.app/api/shop'
         
        );
         console.log("API Response:", response.data); // Log the API response
