@@ -29,6 +29,7 @@ app.use(
     credentials: true
   })
 );
+app.options('*', cors());
 
 // MONDOGB CONNECTION
 mongoose.connect(`mongodb+srv://${process.env.DB_HOST}:${process.env.DB_PASS}@${process.env.DB_NAME}.m6joo.mongodb.net/`).then(() => console.log("MongoDb connected")).catch((error) => console.log(error));
