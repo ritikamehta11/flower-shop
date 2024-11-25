@@ -10,7 +10,7 @@ export const ProductCardAdmin = ({ product, onDelete }) => {
     try {
       const token = localStorage.getItem('token');
       // Send DELETE request to the backend
-      await axios.delete(`https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app/api/shop/delete/${product._id}`, {
+      await axios.delete(`https://flower-shop-1qtms7z64-ritika-mehtas-projects.vercel.app/api/shop/delete/${product._id}`, {
         headers: {
           Authorization: `Bearer ${token}` // Pass token if authentication is required
         }

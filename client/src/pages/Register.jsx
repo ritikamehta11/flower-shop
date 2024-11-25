@@ -50,7 +50,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://flower-shop-kt3cqt4i4-ritika-mehtas-projects.vercel.app/api/auth/register",
+        "https://flower-shop-1qtms7z64-ritika-mehtas-projects.vercel.app/api/auth/register",
         { name, email, phone, password }
       );
 
