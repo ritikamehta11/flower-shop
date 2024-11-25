@@ -35,7 +35,7 @@ const Login = () => {
       const response = await axios.post("https://flower-shop-ochre.vercel.app/api/auth/login", {
         email,
         password,
-      });
+      },{withCredentials:true});
 
       if (response.data.token) {
         const { user, token } = response.data;

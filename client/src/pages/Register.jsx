@@ -51,7 +51,7 @@ const Register = () => {
     try {
       const response = await axios.post(
         "https://flower-shop-ochre.vercel.app/api/auth/register",
-        { name, email, phone, password }
+        { name, email, phone, password }, {withCredentials:true}
       );
 
       setMessage(response.data.message);
