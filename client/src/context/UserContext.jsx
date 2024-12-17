@@ -48,7 +48,7 @@ export const UserProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = async (pid, quantity) => {
-    console.log(user._id, user.id)
+    console.log(user.id, user.id)
     if (!user || !isTokenValid(token)) {
       navigate('/login');
       console.error("User not set or token invalid");
@@ -126,7 +126,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.patch(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user._id}/product/${pid}/decrease`,
+        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${pid}/decrease`,
         {},
         {
           headers: {
