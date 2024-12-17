@@ -76,7 +76,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.delete(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user._id}/product/${id}`,
+        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.patch(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user._id}/product/${pid}/increase`,
+        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${pid}/increase`,
         {},
         {
           headers: {
