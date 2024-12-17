@@ -47,6 +47,7 @@ export const UserProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = async (pid, quantity) => {
+    console.log(user._id, user.id)
     if (!user || !isTokenValid(token)) {
       navigate('/login');
       console.error("User not set or token invalid");
