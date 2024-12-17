@@ -10,11 +10,12 @@ export const Logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("cart");
 
+    // Reset states
     setUser(null);
-    setCart(null);
+    setCart({ items: [] })
 
     navigate('/login');
-  });
+  },[setUser, setCart, navigate, user, token]);
  
   return;
 }

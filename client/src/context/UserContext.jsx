@@ -31,6 +31,7 @@ export const UserProvider = ({ children }) => {
               },
             }
           );
+          console.log(response.data);
           setCart(response.data);
         } catch (error) {
           handleError(error);
