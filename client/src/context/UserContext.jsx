@@ -138,7 +138,7 @@ export const UserProvider = ({ children }) => {
         ...prevCart,
         items: prevCart.items.map((item) =>
           item.product._id === pid ? { ...item, quantity: item.quantity - 1 } : item
-        ),
+        ).filter((item) => item.quantity > 0),
       }));
     } catch (error) {
       handleError(error);
