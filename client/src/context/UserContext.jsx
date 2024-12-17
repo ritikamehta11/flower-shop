@@ -56,7 +56,7 @@ export const UserProvider = ({ children }) => {
     try {
       const response = await axios.post(
         "https://flower-shop-ochre.vercel.app/api/cart",
-        { userId: user._id, pid, quantity },
+        { userId: user.id, pid, quantity },
         {
           headers: {
             Authorization: `Bearer ${token}`,
