@@ -32,7 +32,11 @@ export const UserProvider = ({ children }) => {
             }
           );
           console.log(response.data);
-          setCart(response.data);
+          const filteredCart = {
+            ...response.data,
+            items: response.data.items.filter((item) => item.quantity > 0),
+          };
+          setCart(filteredCart);
         } catch (error) {
           handleError(error);
         }
