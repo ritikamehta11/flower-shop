@@ -9,7 +9,7 @@ import { UserContext } from '@/context/UserContext';
 const ProductDetails = () => {
   const { productId } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
-  const { addToCart } = useContext(UserContext);
+  const { user, addToCart } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
