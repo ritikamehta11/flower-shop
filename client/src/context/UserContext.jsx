@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
 
   const handleError = (error) => {
     console.error("API Error:", error);
-   
+
   };
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
       const fetchCart = async () => {
         try {
           const response = await axios.get(
-            `https://flower-shop-ochre.vercel.app/api/cart/${user.id}`,
+            `https://flower-shop-ochre.vercel.app/api/cart/${user._id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -53,12 +53,14 @@ export const UserProvider = ({ children }) => {
       return;
     }
     try {
+      console.log("see:", user.id, user._id);
       const response = await axios.post(
         "https://flower-shop-ochre.vercel.app/api/cart",
         { userId: user._id, pid, quantity },
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            withCredentials: true,
           },
         }
       );
@@ -145,7 +147,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
+      value={{ user, setUser, setCart, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
     >
       {children}
     </UserContext.Provider>

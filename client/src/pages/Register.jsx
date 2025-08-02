@@ -57,6 +57,7 @@ const Register = () => {
       setMessage(response.data.message);
       setTimeout(() => {
         navigate("/login");
+        
       }, 3000);
     } catch (error) {
       setMessage(error.response?.data?.message || "An error occurred");

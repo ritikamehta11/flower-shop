@@ -8,7 +8,7 @@ export default function Home()  {
   return (
     <section className='h-screen flex flex-col'>
       <Header/>
-      <section className='hero  w-2/4 mx-auto my-10 flex gap-4  p-4'>
+      <section className='hero w-3/4 h-1/3 md:h-full md:w-2/4 mx-auto my-10 flex gap-4  p-4'>
         <img className='w-2/4' src={img}></img>
         <div className='place-content-center '>
           <h1 className='text-4xl mb-7 font-normal'>Welcome to <span className='logo text-4xl block'>Blossom Boutique</span></h1>

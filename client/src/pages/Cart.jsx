@@ -1,13 +1,13 @@
 import { Footer } from '@/components/Footer';
 import Header from '@/components/Header';
 import { UserContext } from '@/context/UserContext';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 const Cart = () => {
 
   const { cart, removeFromCart, increaseQuantity,decreaseQuantity } = useContext(UserContext);
   //const image = response.data.imageUrl;
-
+ const { user } = useContext(UserContext);
   const getTotalPrice = () => {
     console.log("cart in gettotalpricefunction: ", cart);
     const cartTotal = cart.items.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
@@ -23,7 +23,7 @@ const Cart = () => {
       <div className="min-h-screen bg-gray-100 py-10">
         <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-5xl">
           <h1 className="text-3xl font-bold mb-6 text-primary">Your Cart</h1>
-
+{console.log(user._id)}
           {cart.items.length === 0 ? (
             <p className="text-center text-secondary">Your cart is empty.</p>
           ) : (
