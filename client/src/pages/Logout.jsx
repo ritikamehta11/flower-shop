@@ -7,10 +7,17 @@ export const Logout = () => {
   const navigate = useNavigate();
   useEffect(() => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("cart");
+
+    // Reset states
     setUser(null);
 
+ setCart({ items: [] })
+
+
     navigate('/login');
-  });
+  },[setUser, setCart, navigate, user, token]);
  
   return;
 }

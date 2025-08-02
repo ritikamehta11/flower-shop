@@ -31,7 +31,12 @@ export const UserProvider = ({ children }) => {
               },
             }
           );
-          setCart(response.data);
+          console.log(response.data);
+          const filteredCart = {
+            ...response.data,
+            items: response.data.items.filter((item) => item.quantity > 0),
+          };
+          setCart(filteredCart);
         } catch (error) {
           handleError(error);
         }
@@ -47,6 +52,7 @@ export const UserProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = async (pid, quantity) => {
+    console.log(user.id, user.id)
     if (!user || !isTokenValid(token)) {
       navigate('/login');
       console.error("User not set or token invalid");
@@ -56,7 +62,7 @@ export const UserProvider = ({ children }) => {
       console.log("see:", user.id, user._id);
       const response = await axios.post(
         "https://flower-shop-ochre.vercel.app/api/cart",
-        { userId: user._id, pid, quantity },
+        { userId: user.id, pid, quantity },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -77,7 +83,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.delete(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user._id}/product/${id}`,
+        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,7 +106,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.patch(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user._id}/product/${pid}/increase`,
+        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${pid}/increase`,
         {},
         {
           headers: {
@@ -126,7 +132,7 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.patch(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user._id}/product/${pid}/decrease`,
+        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${pid}/decrease`,
         {},
         {
           headers: {
@@ -138,7 +144,7 @@ export const UserProvider = ({ children }) => {
         ...prevCart,
         items: prevCart.items.map((item) =>
           item.product._id === pid ? { ...item, quantity: item.quantity - 1 } : item
-        ),
+        ).filter((item) => item.quantity > 0),
       }));
     } catch (error) {
       handleError(error);

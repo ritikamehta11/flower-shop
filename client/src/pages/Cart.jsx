@@ -23,7 +23,11 @@ const Cart = () => {
       <div className="min-h-screen bg-gray-100 py-10">
         <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-5xl">
           <h1 className="text-3xl font-bold mb-6 text-primary">Your Cart</h1>
+
 {console.log(user._id)}
+
+{console.log(cart)}
+
           {cart.items.length === 0 ? (
             <p className="text-center text-secondary">Your cart is empty.</p>
           ) : (
