@@ -9,11 +9,11 @@ export default function Home()  {
     <section className='h-screen flex flex-col'>
       <Header/>
       <section className='hero w-3/4 h-1/3 md:h-full md:w-2/4 mx-auto my-10 flex gap-4  p-4'>
-        <img className='w-2/4' src={img}></img>
+        <img className='w-2/5 md:w-2/4 h-2/3 md:h-full' src={img}></img>
         <div className='place-content-center '>
-          <h1 className='text-4xl mb-7 font-normal'>Welcome to <span className='logo text-4xl block'>Petal Palette</span></h1>
-          <p className='sub-head text-xl font-thin capitalize mb-7 text-left'>handpicked flowers,<span className='text-right block'> thoughtfully arranged</span></p>
-          <Link to='/main'><button className='pri-btn btn block px-9 py-1 text-center font-thin mx-auto'>Shop Now</button></Link>
+          <h1 className='text-sm md:text-4xl mb-7 font-normal'>Welcome to <span className='logo text-md md:text-4xl block'>Petal Palette</span></h1>
+          <p className='sub-head text-sm md:text-xl font-thin capitalize mb-7 text-left'>handpicked flowers,<span className='text-right block'> thoughtfully arranged</span></p>
+          <Link to='/main'><button className='pri-btn btn block px-5 md:px-9 py-1 text-center font-thin text-xs md:text-lg mx-auto'>Shop Now</button></Link>
         </div>
 
       </section>
