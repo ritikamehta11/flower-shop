@@ -29,7 +29,7 @@ const Cart = () => {
                 <ul className="space-y-4">
                   {cart.items.map((item) => (
                     <li
-                      key={item.product._id}
+                      key={item._id}
                       className="flex items-center justify-between border-b py-4 border-gray-200"
                     >
                       <div className="flex items-center">

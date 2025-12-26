@@ -15,34 +15,35 @@ const getCart= async (req, res) => {
   }
 };
 
-// Add item to cart
-const addToCart= async (req, res) => {
+const addToCart = async (req, res) => {
   const { userId, pid, quantity } = req.body;
-  
+
   try {
-    let cart = await Cart.findOne({ userId }).populate('items.product');
-    
+    let cart = await Cart.findOne({ userId }).populate("items.product");
+
     if (!cart) {
+      // Create new cart with the item
       cart = new Cart({
         userId,
         items: [{ product: pid, quantity }],
       });
-    }
-
-    const existingItemIndex = cart.items.findIndex(item => item.product._id.toString() === pid);
-    
-    if (existingItemIndex !== -1) {
-      // If the item already exists, update the quantity
-      cart.items[existingItemIndex].quantity += quantity;
     } else {
+      // Cart exists, check if item already in cart
+      const existingItemIndex = cart.items.findIndex(
+        (item) => item.product._id.toString() === pid
+      );
 
-      // If the item does not exist, add it to the cart
-      cart.items.push({ product: pid, quantity });
+      if (existingItemIndex !== -1) {
+        // Item exists, update quantity
+        cart.items[existingItemIndex].quantity += quantity;
+      } else {
+        // Item doesn't exist, add it
+        cart.items.push({ product: pid, quantity });
+      }
     }
 
     await cart.save();
-   cart = await Cart.findOne({ userId }).populate('items.product');
-    //console.log(cart);
+    cart = await Cart.findOne({ userId }).populate("items.product");
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
