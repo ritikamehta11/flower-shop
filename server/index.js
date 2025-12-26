@@ -17,16 +17,17 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "*",
-    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
+    origin: "http://localhost:5173/" || "https://flower-shop-zsdd.vercel.app/",
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
     allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Cache-Control',
-      'Expires',
-      'Pragma'
+      "Content-Type",
+      "Authorization",
+      "Cache-Control",
+      "Expires",
+      "Pragma",
+      "withcredentials",
     ],
-    credentials: true
+    credentials: true,
   })
 );
 app.options('*', cors());

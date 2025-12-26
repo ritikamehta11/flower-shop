@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from '../components/Header';
 import img from '../assets/images/homepageMain.png';
+import API from "@/api/axios";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -47,21 +48,34 @@ const Register = () => {
     if (!validateUser()) {
       return;
     }
-
-    try {
-      const response = await axios.post(
-        "https://flower-shop-ochre.vercel.app/api/auth/register",
-        { name, email, phone, password }, {withCredentials:true}
-      );
-
+    API.post("api/auth/register", {
+      name,
+      email, 
+      phone,
+      password
+    }).then((response) => { 
       setMessage(response.data.message);
       setTimeout(() => {
         navigate("/login");
-        
       }, 3000);
-    } catch (error) {
+    }).catch((error) => {
       setMessage(error.response?.data?.message || "An error occurred");
-    }
+    });
+
+    // try {
+    //   const response = await axios.post(
+    //     "https://flower-shop-ochre.vercel.app/api/auth/register",
+    //     { name, email, phone, password }, {withCredentials:true}
+    //   );
+
+    //   setMessage(response.data.message);
+    //   setTimeout(() => {
+    //     navigate("/login");
+        
+    //   }, 3000);
+    // } catch (error) {
+    //   setMessage(error.response?.data?.message || "An error occurred");
+    // }
   };
 
   return (

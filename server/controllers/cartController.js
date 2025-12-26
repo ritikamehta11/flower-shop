@@ -31,10 +31,11 @@ const addToCart= async (req, res) => {
 
     const existingItemIndex = cart.items.findIndex(item => item.product._id.toString() === pid);
     
-    if (existingItemIndex > -1) {
+    if (existingItemIndex !== -1) {
       // If the item already exists, update the quantity
       cart.items[existingItemIndex].quantity += quantity;
     } else {
+
       // If the item does not exist, add it to the cart
       cart.items.push({ product: pid, quantity });
     }

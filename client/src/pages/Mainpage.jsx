@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from '@/components/Header';
 import { UserContext } from '@/context/UserContext';
 import { Footer } from '@/components/Footer';
+import API from '@/api/axios';
 
 
 export const Mainpage = () => {
@@ -14,20 +15,11 @@ export const Mainpage = () => {
   const [searchTerm,setSearchTerm] = useState('');
   useEffect(() => {
 
-    const fetchProducts = async () => {
-     try {
-        const token = localStorage.getItem('token');
-      //console.log("before response");
-        const response = await axios.get('https://flower-shop-ochre.vercel.app/api/shop'
-        
-       );
-        console.log("API Response:", response.data); // Log the API response
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
+    API.get('/api/shop').then((response) => {
+      setProducts(response.data);
+    }).catch((error) => {
+      console.error('Error fetching products:', error);
+    });
     
 
   }, []);

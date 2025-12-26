@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import img from "../assets/images/homepageMain.png";
+import API from "@/api/axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -28,37 +29,64 @@ const Login = () => {
     e.preventDefault();
     setServerError(""); // Clear any previous server errors
 
-    try {
-      if (!validateUser()) {
-        return;
-      }
-      const response = await axios.post("https://flower-shop-ochre.vercel.app/api/auth/login", {
+    if (!validateUser()) {
+      return;
+    }
+
+      API.post("api/auth/login", {
         email,
         password,
-      },{withCredentials:true});
-
-      if (response.data.token) {
-        const { user, token } = response.data;
-        const { role } = user; // Assuming the response structure includes user data
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        setUser(user);
-
-        // Navigate based on user role
-        if (role === "admin") {
-          navigate("/admin/dashboard"); // Redirect to admin dashboard
-        } else {
-          navigate("/main"); // Redirect to user main page
+      }).then((response) => {
+        if (response.data.token) {
+          const { user, token } = response.data;
+          const { role } = user; 
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
+          setUser(user);
+          // Navigate based on user role
+          if (role === "admin") {
+            navigate("/admin/dashboard"); // Redirect to admin dashboard
+          } else {
+            navigate("/main"); // Redirect to user main page
+          }
         }
-      }
-    } catch (error) {
-      // Display error message from server response if available
-      if (error.response && error.response.data && error.response.data.message) {
-        setServerError(error.response.data.message);
-      } else {
-        setServerError("An error occurred. Please try again.");
-      }
-    }
+      }).catch((error) => {
+        // Display error message from server response if available
+        if (error.response && error.response.data && error.response.data.message) {
+          setServerError(error.response.data.message);
+        } else {
+          setServerError("An error occurred. Please try again.");
+        }
+      });
+    
+
+    //   const response = await axios.post("https://flower-shop-ochre.vercel.app/api/auth/login", {
+    //     email,
+    //     password,
+    //   },{withCredentials:true});
+
+    //   if (response.data.token) {
+    //     const { user, token } = response.data;
+    //     const { role } = user; // Assuming the response structure includes user data
+    //     localStorage.setItem("token", token);
+    //     localStorage.setItem("user", JSON.stringify(user));
+    //     setUser(user);
+
+    //     // Navigate based on user role
+    //     if (role === "admin") {
+    //       navigate("/admin/dashboard"); // Redirect to admin dashboard
+    //     } else {
+    //       navigate("/main"); // Redirect to user main page
+    //     }
+    //   }
+    // } catch (error) {
+    //   // Display error message from server response if available
+    //   if (error.response && error.response.data && error.response.data.message) {
+    //     setServerError(error.response.data.message);
+    //   } else {
+    //     setServerError("An error occurred. Please try again.");
+      // }
+    // }
   };
 
   return (

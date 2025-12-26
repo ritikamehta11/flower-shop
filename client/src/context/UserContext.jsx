@@ -1,163 +1,181 @@
-import { useState, createContext, useContext, useEffect } from "react";
-import axios from "axios";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "@/api/axios";
 
-export const UserContext = createContext();
+export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const savedUser = localStorage.getItem("user");
-  const savedCart = localStorage.getItem("cart");
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const isTokenValid = (token) => token && token.split(".").length === 3;
 
-  const [user, setUser] = useState(savedUser ? JSON.parse(savedUser) : null);
-  const [cart, setCart] = useState(savedCart ? JSON.parse(savedCart) : { items: [] });
+  /* -------------------- STATE -------------------- */
+
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem("user");
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : { items: [] };
+  });
+
+  const token = localStorage.getItem("token");
+  const userId = user?.id || user?._id;
+
+  const isTokenValid = useCallback(
+    () => token && token.split(".").length === 3,
+    [token]
+  );
 
   const handleError = (error) => {
-    console.error("API Error:", error);
-
+    console.error("API Error:", error?.response?.data || error.message);
   };
 
-  useEffect(() => {
-    if (user && isTokenValid(token)) {
-      const fetchCart = async () => {
-        try {
-          const response = await axios.get(
-            `https://flower-shop-ochre.vercel.app/api/cart/${user._id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(response.data);
-          const filteredCart = {
-            ...response.data,
-            items: response.data.items.filter((item) => item.quantity > 0),
-          };
-          setCart(filteredCart);
-        } catch (error) {
-          handleError(error);
-        }
-      };
-      fetchCart();
-    }
-  }, [user, token]);
+  /* -------------------- CART FETCH -------------------- */
 
-  useEffect(() => {
-    if (cart?.items) {
-      localStorage.setItem("cart", JSON.stringify(cart));
+  const fetchCart = useCallback(async () => {
+    if (!userId || !isTokenValid()) return;
+
+    try {
+      const { data } = await API.get(`/api/cart/${userId}`);
+
+      // Safety guard
+      if (data.userId !== userId) {
+        console.warn("Cart-user mismatch. Clearing cart.");
+        setCart({ items: [] });
+        return;
+      }
+
+      setCart({
+        ...data,
+        items: data.items.filter((i) => i.quantity > 0),
+      });
+    } catch (error) {
+      handleError(error);
     }
+  }, [userId, isTokenValid]);
+
+  /* -------------------- EFFECTS -------------------- */
+
+  // Fetch cart on login / refresh
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
+  // Persist cart
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = async (pid, quantity) => {
-    console.log(user.id, user.id)
-    if (!user || !isTokenValid(token)) {
-      navigate('/login');
-      console.error("User not set or token invalid");
+  // Clear cart on logout
+  useEffect(() => {
+    if (!user) {
+      setCart({ items: [] });
+      localStorage.removeItem("cart");
+    }
+  }, [user]);
+
+  /* -------------------- CART ACTIONS -------------------- */
+
+  const addToCart = async (pid, quantity = 1) => {
+    if (!userId || !isTokenValid()) {
+      navigate("/login");
       return;
     }
+
     try {
-      console.log("see:", user.id, user._id);
-      const response = await axios.post(
-        "https://flower-shop-ochre.vercel.app/api/cart",
-        { userId: user.id, pid, quantity },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            withCredentials: true,
-          },
-        }
-      );
-      setCart(response.data);
+      const { data } = await API.post("/api/cart", {
+        userId,
+        pid,
+        quantity,
+      });
+
+      setCart(data); // 🔥 instant UI update
     } catch (error) {
       handleError(error);
     }
   };
 
-  const removeFromCart = async (id) => {
-    if (!user || !isTokenValid(token)) {
-      console.error("User not set or token invalid");
-      return;
-    }
+  const removeFromCart = async (pid) => {
+    const prevCart = cart;
+
+    setCart((prev) => ({
+      ...prev,
+      items: prev.items.filter((item) => item.product._id !== pid),
+    }));
     try {
-      await axios.delete(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const { data } = await API.delete(
+        `/api/cart/${userId}/product/${pid}`
       );
-      setCart((prevCart) => ({
-        ...prevCart,
-        items: prevCart.items.filter((item) => item.product._id !== id),
-      }));
+      setCart(data);
     } catch (error) {
       handleError(error);
     }
   };
 
   const increaseQuantity = async (pid) => {
-    if (!user || !isTokenValid(token)) {
-      console.error("User not set or token invalid");
-      return;
-    }
+    setCart((prev) => ({
+      ...prev,
+      items: prev.items.map((item) =>
+        item.product._id === pid
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ),
+    }));
     try {
-      await axios.patch(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${pid}/increase`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const { data } = await API.patch(
+        `/api/cart/${userId}/product/${pid}/increase`
       );
-      setCart((prevCart) => ({
-        ...prevCart,
-        items: prevCart.items.map((item) =>
-          item.product._id === pid ? { ...item, quantity: item.quantity + 1 } : item
-        ),
-      }));
+      setCart(data);
     } catch (error) {
       handleError(error);
     }
   };
 
   const decreaseQuantity = async (pid) => {
-    if (!user || !isTokenValid(token)) {
-      console.error("User not set or token invalid");
-      return;
-    }
+    setCart((prev) => ({
+      ...prev,
+      items: prev.items
+        .map((item) =>
+          item.product._id === pid
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0),
+    }));
     try {
-      await axios.patch(
-        `https://flower-shop-ochre.vercel.app/api/cart/${user.id}/product/${pid}/decrease`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const { data } = await API.patch(
+        `/api/cart/${userId}/product/${pid}/decrease`
       );
-      setCart((prevCart) => ({
-        ...prevCart,
-        items: prevCart.items.map((item) =>
-          item.product._id === pid ? { ...item, quantity: item.quantity - 1 } : item
-        ).filter((item) => item.quantity > 0),
-      }));
+      setCart(data);
     } catch (error) {
       handleError(error);
     }
   };
 
+  /* -------------------- PROVIDER -------------------- */
+
   return (
     <UserContext.Provider
-      value={{ user, setUser, setCart, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
+      value={{
+        user,
+        setUser,
+        cart,
+        addToCart,
+        removeFromCart,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
     >
       {children}
     </UserContext.Provider>
   );
 };
 
-export const useUserContext = () => useContext(UserContext);
+export const useUserContext = () => {
+  const ctx = useContext(UserContext);
+  if (!ctx) {
+    throw new Error("useUserContext must be used inside UserProvider");
+  }
+  return ctx;
+};
