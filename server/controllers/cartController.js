@@ -132,3 +132,10 @@ const deleteItemFromCart = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+module.exports = {
+  getCart,
+  addToCart,
+  deleteItemFromCart,
+  increaseItemQuantity,
+  decreaseItemQuantity
+};
