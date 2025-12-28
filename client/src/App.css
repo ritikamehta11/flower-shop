@@ -44,12 +44,36 @@ body {
   background-color: var(--accent-lt);
   color: var(--primary-lt);
   font-size: 0.8em;
+  transition: all 0.5s ease;
+}
+
+.pri-btn:hover {
+  background-color: var(--accent-dk);
+  color: var(--primary-lt);
+  border-radius: 50px;
 }
 
 ul>li {
   color: var(--accent-lt);
 }
 
+ul>li:hover{
+  color: var(--accent-dk);
+  }
+
+  icon:hover{
+    color: var(--accent-lt);
+  }
+  input:focus{
+    border-color: var(--accent-dk);
+  
+  }
+
+  .prodCard:hover{
+    border: 1px solid rgba(0, 0, 0, 0.353);
+    background: var(--accent-lt);
+    color: var(--primary-lt);
+  }
 /* Register page */
 
 .input {

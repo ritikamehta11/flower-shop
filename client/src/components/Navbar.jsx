@@ -1,96 +1,170 @@
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "@/context/UserContext";
-import { useContext ,useEffect,useState} from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import {
+  FiShoppingCart,
+  FiUser,
+  FiLogOut,
+  FiMenu,
+} from "react-icons/fi";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log("on site opening", user, "         user role:", user?.role);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    navigate('/login');
-  }
-  
-    const [menuOpen, setMenuOpen] = useState(false);
-  function isMenuOpen()  {
-    setMenuOpen(!menuOpen);
-    console.log(menuOpen)
+    navigate("/login");
   };
 
-  if (user === null) {
-    return (
-      <>
+  const toggleMenu = () => setMenuOpen(prev => !prev);
 
-        <nav className='md:flex flex-wrap flex-row  basis-2/4  w-4/5  hidden' >
-          <ul className='flex flex-wrap gap-5 justify-evenly basis-2/4 content-center '>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/contact'>Contact Us</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/'>All Products</Link></li>
+  /* ---------------- LINKS CONFIG ---------------- */
 
-          </ul>
-          <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
-            <li><Link to='/cart'></Link></li>
-            <li><Link to='/register'>Register</Link></li>
-          </ul>
-        </nav>
-      
-        
-    
-        <nav>
-          <button className="w-3 h-3 bg-black md:hidden" onClick={isMenuOpen} >
-          </button>
-          <ul className={`flex-wrap flex-col gap-5 justify-evenly basis-2/4 content-center md:hidden  ${menuOpen ? 'flex' : 'hidden'} bg-white shadow-md z-10 absolute p-3`}>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/contact'>Contact Us</Link></li>
-          <li><Link to='/about'>About</Link></li>
-          <li><Link to='/'>All Products</Link></li>
+  const commonLinks = [
+    { to: "/", label: "Home" },
+    { to: "/contact", label: "Contact Us" },
+    { to: "/about", label: "About" },
+    { to: "/main", label: "All Products" },
+  ];
 
-        </ul></nav>
-      </>
-      
-    )
-  }
-  else if (user?.role === "user") {
-    return (
+  const guestLinks = [
+    { to: "/register", label: "Register" },
+  ];
 
-      <>
+  const userLinks = [
+    {
+      to: "/cart",
+      label: "Cart",
+      icon: <FiShoppingCart size={20} />,
+    },
+    {
+      to: "/user/profile",
+      label: "Profile",
+      icon: <FiUser size={20} />,
+    },
+  ];
 
-        <nav className='flex flex-wrap flex-row  basis-2/4  w-4/5 ' >
-          <ul className='flex flex-wrap gap-5 justify-evenly basis-2/4 content-center'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/contact'>Contact Us</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/main'>All Products</Link></li>
-       
+  const adminLinks = [
+    { to: "/admin/dashboard", label: "Dashboard" },
+    { to: "/admin/allproducts", label: "All Products" },
+  ];
 
-          </ul>
-          <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
-            <li><Link to='/cart'>Cart</Link></li>
-            <li><Link to='/user/profile'>Profile</Link></li>
-            <li onClick={handleLogout}>Logout</li>
-          </ul>
-        </nav></>
-    )
-  }
+  const rightLinks =
+    !user
+      ? guestLinks
+      : user.role === "admin"
+        ? adminLinks
+        : userLinks;
 
+  /* ---------------- RENDER ---------------- */
 
-  else if (user?.role === "admin") {
-    return(
-    <>
-
-      <nav className='flex flex-wrap flex-row  basis-2/4  w-4/5 ' >
-        <ul className='flex flex-wrap gap-5 justify-evenly basis-2/4 content-center'>
-          <li><Link to='/admin/dashboard'>DashBoard</Link></li>
-          <li><Link to='/admin/allproducts'>All Products</Link></li>
-
+  return (
+    <header className="relative w-full border-b bg-white">
+      {/* Desktop Navbar */}
+      <nav className="hidden md:flex w-4/5 mx-auto py-4 justify-between items-center">
+        <ul className="flex gap-6">
+          {commonLinks.map(link => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className=" transition"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
         </ul>
-        <ul className='flex flex-wrap gap-5  justify-end basis-2/4 content-center'>
-          <li><Link to='/cart'></Link></li>
-          <li><Link onClick={handleLogout}>Logout</Link></li>
+
+        <ul className="flex gap-6 items-center">
+          {rightLinks.map(link => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className="flex items-center gap-2  transition"
+                aria-label={link.label}
+                title={link.label}
+              >
+                {link.icon && link.icon}
+                <span className="sr-only">{link.label}</span>
+              </Link>
+            </li>
+          ))}
+
+          {user && (
+            <li>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 text-red-500 hover:text-red-600 transition"
+                aria-label="Logout"
+                title="Logout"
+              >
+                <FiLogOut size={20} />
+                <span className="sr-only">Logout</span>
+              </button>
+            </li>
+          )}
         </ul>
-      </nav></>)
-  }
+      </nav>
+
+      {/* Mobile Menu Button */}
+      <button
+        onClick={toggleMenu}
+        className="md:hidden p-3 m-3 rounded-md bg-black text-white"
+        aria-label="Toggle navigation menu"
+      >
+        <FiMenu size={22} />
+      </button>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <ul className="md:hidden absolute right-3 top-16 bg-white shadow-lg rounded-xl p-4 flex flex-col gap-4 z-10 w-48">
+          {commonLinks.map(link => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                onClick={toggleMenu}
+                className="hover:text-indigo-600 transition"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+
+          {rightLinks.map(link => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                onClick={toggleMenu}
+                className="flex items-center gap-3 hover:text-indigo-600 transition"
+                aria-label={link.label}
+              >
+                {link.icon && link.icon}
+                <span>{link.label}</span>
+              </Link>
+            </li>
+          ))}
+
+          {user && (
+            <li>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  toggleMenu();
+                }}
+                className="flex items-center gap-3 text-red-500 hover:text-red-600 transition"
+                aria-label="Logout"
+              >
+                <FiLogOut size={20} />
+                <span>Logout</span>
+              </button>
+            </li>
+          )}
+        </ul>
+      )}
+    </header>
+  );
 }
