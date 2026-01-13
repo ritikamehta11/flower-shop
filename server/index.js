@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173" || "https://flower-shop-zsdd.vercel.app",
+    origin: ["http://localhost:5173", "https://flower-shop-zsdd.vercel.app"],
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
     allowedHeaders: [
       "Content-Type",

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://flower-shop-ochre.vercel.app/" || "http://localhost:5173",
+  baseURL: "https://flower-shop-ochre.vercel.app/" || "http://localhost:5173/",
   
 });
 
