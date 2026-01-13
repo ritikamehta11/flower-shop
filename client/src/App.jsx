@@ -15,9 +15,7 @@ import { Users } from './pages/Users';
 import ProductDetails from './pages/ProductDetails';
 import { UserProfile } from './pages/UserProfile';
 import { Logout } from './pages/Logout';
-
-
-UserProfile
+import { Analytics } from "@vercel/analytics/next"
 function App() {
  // const { setUser } = useContext(UserContext);
 
@@ -32,7 +30,7 @@ function App() {
   return (
 
     <Routes>
-
+<Analytics />
       <Route path="/" element={<Home />} />
       {/* <Route path="/contact" element={<Contact/>} /> */}
 
