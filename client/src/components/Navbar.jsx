@@ -89,7 +89,7 @@ export default function Navbar() {
                 title={link.label}
               >
                 {link.icon && link.icon}
-                <span className="sr-only">{link.label}</span>
+                <span className="">{link.label}</span>
               </Link>
             </li>
           ))}
@@ -103,7 +103,7 @@ export default function Navbar() {
                 title="Logout"
               >
                 <FiLogOut size={20} />
-                <span className="sr-only">Logout</span>
+                <span className="">Logout</span>
               </button>
             </li>
           )}
