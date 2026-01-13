@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import API from "@/api/axios";
 
@@ -22,10 +28,20 @@ export const UserProvider = ({ children }) => {
   const token = localStorage.getItem("token");
   const userId = user?.id || user?._id;
 
-  const isTokenValid = useCallback(
-    () => token && token.split(".").length === 3,
-    [token]
-  );
+  /* -------------------- AUTH HELPERS -------------------- */
+
+  const isTokenValid = useCallback(() => {
+    return token && token.split(".").length === 3;
+  }, [token]);
+
+  const isValidUser = useCallback(() => {
+    return (
+      user &&
+      typeof user === "object" &&
+      user.role &&
+      isTokenValid()
+    );
+  }, [user, isTokenValid]);
 
   const handleError = (error) => {
     console.error("API Error:", error?.response?.data || error.message);
@@ -34,12 +50,11 @@ export const UserProvider = ({ children }) => {
   /* -------------------- CART FETCH -------------------- */
 
   const fetchCart = useCallback(async () => {
-    if (!userId || !isTokenValid()) return;
+    if (!isValidUser() || !userId) return;
 
     try {
       const { data } = await API.get(`/api/cart/${userId}`);
 
-      // Safety guard
       if (data.userId !== userId) {
         console.warn("Cart-user mismatch. Clearing cart.");
         setCart({ items: [] });
@@ -53,9 +68,20 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       handleError(error);
     }
-  }, [userId, isTokenValid]);
+  }, [userId, isValidUser]);
 
   /* -------------------- EFFECTS -------------------- */
+
+  // 🔒 Remove ghost / invalid users (PRODUCTION FIX)
+  useEffect(() => {
+    if (user && !isValidUser()) {
+      console.warn("Invalid user detected. Logging out.");
+
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      setUser(null);
+    }
+  }, [user, isValidUser]);
 
   // Fetch cart on login / refresh
   useEffect(() => {
@@ -78,7 +104,7 @@ export const UserProvider = ({ children }) => {
   /* -------------------- CART ACTIONS -------------------- */
 
   const addToCart = async (pid, quantity = 1) => {
-    if (!userId || !isTokenValid()) {
+    if (!isValidUser()) {
       navigate("/login");
       return;
     }
@@ -90,19 +116,18 @@ export const UserProvider = ({ children }) => {
         quantity,
       });
 
-      setCart(data); // 🔥 instant UI update
+      setCart(data);
     } catch (error) {
       handleError(error);
     }
   };
 
   const removeFromCart = async (pid) => {
-    const prevCart = cart;
-
     setCart((prev) => ({
       ...prev,
       items: prev.items.filter((item) => item.product._id !== pid),
     }));
+
     try {
       const { data } = await API.delete(
         `/api/cart/${userId}/product/${pid}`
@@ -122,6 +147,7 @@ export const UserProvider = ({ children }) => {
           : item
       ),
     }));
+
     try {
       const { data } = await API.patch(
         `/api/cart/${userId}/product/${pid}/increase`
@@ -143,6 +169,7 @@ export const UserProvider = ({ children }) => {
         )
         .filter((item) => item.quantity > 0),
     }));
+
     try {
       const { data } = await API.patch(
         `/api/cart/${userId}/product/${pid}/decrease`
@@ -161,6 +188,7 @@ export const UserProvider = ({ children }) => {
         user,
         setUser,
         cart,
+        isAuthenticated: isValidUser(),
         addToCart,
         removeFromCart,
         increaseQuantity,
@@ -171,6 +199,8 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+/* -------------------- SAFE HOOK -------------------- */
 
 export const useUserContext = () => {
   const ctx = useContext(UserContext);
