@@ -1,54 +1,47 @@
-import React, { useContext, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import './App.css'
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import { Mainpage } from './pages/Mainpage';
-import { AdminDashboard } from './pages/AdminDashboard';
-import { ProductsAdmin } from './pages/ProductsAdmin';
-import { AddProduct } from './pages/AddProduct';
-import { UpdateProduct } from './pages/UpdateProduct';
-import { UserContext } from './context/UserContext';
-import Cart from './pages/Cart';
-import { Users } from './pages/Users';
-import ProductDetails from './pages/ProductDetails';
-import { UserProfile } from './pages/UserProfile';
-import { Logout } from './pages/Logout';
-import { Analytics } from "@vercel/analytics/next"
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import { Mainpage } from "./pages/Mainpage";
+import { AdminDashboard } from "./pages/AdminDashboard";
+import { ProductsAdmin } from "./pages/ProductsAdmin";
+import { AddProduct } from "./pages/AddProduct";
+import { UpdateProduct } from "./pages/UpdateProduct";
+import Cart from "./pages/Cart";
+import { Users } from "./pages/Users";
+import ProductDetails from "./pages/ProductDetails";
+import { UserProfile } from "./pages/UserProfile";
+import { Logout } from "./pages/Logout";
+
+import { Analytics } from "@vercel/analytics/react";
+
 function App() {
- // const { setUser } = useContext(UserContext);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  // const savedUser = localStorage.getItem('user');
-
-  //   if (token && savedUser) {
-  //setUser(JSON.parse(savedUser)); // Restore the user from localStorage
-  //   }
-  // }, []);
   return (
+    <>
+      <Analytics />
 
-    <Routes>
-<Analytics />
-      <Route path="/" element={<Home />} />
-      {/* <Route path="/contact" element={<Contact/>} /> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/main" element={<Mainpage />} />
 
-      <Route path='/register' element={<Register />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/main' element={<Mainpage />}></Route>
-      <Route path='/admin/dashboard' element={<AdminDashboard />} />
-      <Route path='/admin/allproducts' element={<ProductsAdmin />} />
-      <Route path='/admin/createproduct' element={<AddProduct />} />
-      <Route path='/admin/updateproductbyid/:id' element={<UpdateProduct />} />
-      <Route path='/cart' element={<Cart />} />
-      <Route path='/admin/users' element={<Users />} />
-      <Route path="/product/:productId" element={<ProductDetails />} />
-      <Route path='/user/profile' element={<UserProfile />} />
-      <Route path='/logout' element={<Logout/>}/>
-    </Routes>
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/allproducts" element={<ProductsAdmin />} />
+        <Route path="/admin/createproduct" element={<AddProduct />} />
+        <Route path="/admin/updateproductbyid/:id" element={<UpdateProduct />} />
+        <Route path="/admin/users" element={<Users />} />
 
-  )
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/user/profile" element={<UserProfile />} />
+        <Route path="/logout" element={<Logout />} />
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;
